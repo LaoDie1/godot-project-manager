@@ -1,0 +1,146 @@
+[gd_scene load_steps=5 format=3 uid="uid://bhf5ght1nsmj1"]
+
+[ext_resource type="Script" path="res://src/scene/create_new_project.gd" id="1_2yak6"]
+[ext_resource type="Shortcut" uid="uid://cel18f0mes7rn" path="res://src/assets/window_input_esc.tres" id="2_bm62k"]
+
+[sub_resource type="Image" id="Image_of6xg"]
+data = {
+"data": PackedByteArray(255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 90, 90, 90, 184, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 181, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 91, 91, 91, 73, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 181, 255, 255, 255, 0, 255, 255, 255, 0, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 255, 255, 255, 0, 255, 255, 255, 0, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 255, 255, 255, 0, 255, 255, 255, 0, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 255, 255, 255, 0, 255, 255, 255, 0, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 255, 255, 255, 0, 255, 255, 255, 0, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 228, 91, 91, 91, 131, 90, 90, 90, 130, 90, 90, 90, 201, 90, 90, 90, 130, 90, 90, 90, 130, 90, 90, 90, 206, 90, 90, 90, 138, 91, 91, 91, 140, 255, 255, 255, 0, 255, 255, 255, 0, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 231, 102, 102, 102, 20, 255, 255, 255, 1, 255, 255, 255, 1, 255, 255, 255, 0, 255, 255, 255, 1, 255, 255, 255, 1, 255, 255, 255, 0, 255, 255, 255, 1, 255, 255, 255, 1, 255, 255, 255, 0, 255, 255, 255, 0, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 147, 255, 255, 255, 0, 91, 91, 91, 194, 90, 90, 90, 193, 255, 255, 255, 0, 91, 91, 91, 194, 90, 90, 90, 193, 255, 255, 255, 0, 91, 91, 91, 194, 90, 90, 90, 193, 255, 255, 255, 0, 255, 255, 255, 0, 90, 90, 90, 181, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 159, 255, 255, 255, 0, 91, 91, 91, 191, 90, 90, 90, 189, 255, 255, 255, 0, 91, 91, 91, 191, 90, 90, 90, 189, 255, 255, 255, 0, 91, 91, 91, 191, 90, 90, 90, 189, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0),
+"format": "RGBA8",
+"height": 16,
+"mipmaps": false,
+"width": 16
+}
+
+[sub_resource type="ImageTexture" id="ImageTexture_y1dpa"]
+image = SubResource("Image_of6xg")
+
+[node name="CreateNewProject" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2yak6")
+metadata/_edit_lock_ = true
+
+[node name="SelectProjectsDirDialog" type="FileDialog" parent="."]
+unique_name_in_owner = true
+title = "Open a Directory"
+size = Vector2i(700, 400)
+ok_button_text = "Select Current Folder"
+file_mode = 2
+access = 2
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "项目名称："
+
+[node name="ProjectNameLineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "项目路径："
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ProjectPathLineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ProjectsPathButton" type="TextureButton" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture_normal = SubResource("ImageTexture_y1dpa")
+texture_pressed = SubResource("ImageTexture_y1dpa")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="ExistsContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="ExistsErrorLabel" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/ExistsContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0.226563, 0.226563, 0.756863)
+text = "已经存在这个目录"
+
+[node name="ReCreateButton" type="CheckButton" parent="MarginContainer/VBoxContainer/VBoxContainer/ExistsContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "重新创建此项目"
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 10
+alignment = 1
+
+[node name="Control" type="Control" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CreateButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "创建"
+
+[node name="Control2" type="Control" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CloseButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+shortcut = ExtResource("2_bm62k")
+text = "关闭"
+
+[node name="Control3" type="Control" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[connection signal="dir_selected" from="SelectProjectsDirDialog" to="." method="_on_select_projects_dir_dialog_dir_selected"]
+[connection signal="text_changed" from="MarginContainer/VBoxContainer/ProjectNameLineEdit" to="." method="_on_project_name_line_edit_text_changed"]
+[connection signal="text_changed" from="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/ProjectPathLineEdit" to="." method="_on_project_path_line_edit_text_changed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/ProjectsPathButton" to="." method="_on_projects_path_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/VBoxContainer/ExistsContainer/ReCreateButton" to="." method="refresh_disable_status"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/CreateButton" to="." method="_on_create_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]

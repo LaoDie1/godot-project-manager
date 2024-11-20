@@ -1,0 +1,32 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="项目管理器"
+run/main_scene="res://src/main.tscn"
+config/features=PackedStringArray("4.3")
+
+[autoload]
+
+Global="*res://src/global/global.gd"
+
+[display]
+
+window/subwindows/embed_subwindows=false
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/apprentice/plugin.cfg", "res://addons/script_comment_menu/plugin.cfg")
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0
+environment/defaults/default_clear_color=Color(1, 1, 1, 1)
