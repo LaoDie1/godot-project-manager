@@ -73,4 +73,4 @@ theme_override_font_sizes/font_size = 14
 layout_mode = 2
 mouse_filter = 2
 border_color = Color(1, 1, 1, 1)
-border_width = 4.0
+border_width = 2.0

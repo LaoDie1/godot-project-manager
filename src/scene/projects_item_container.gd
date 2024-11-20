@@ -13,8 +13,8 @@ var projects := {}
 var init_status := false
 var last_selected_item = null
 
-@onready var item_container: HFlowContainer = %ItemContainer
 
+@onready var item_container: HFlowContainer = %ItemContainer
 
 
 func _ready() -> void:
@@ -32,13 +32,15 @@ func _ready() -> void:
 
 
 func add_file(dir: String):
+	dir = dir.replace("\\", "/").strip_edges()
+	if dir.ends_with("/"):
+		dir = dir.substr(0, dir.length()-1)
 	if FileUtil.dir_exists(dir) and not projects.has(dir):
+		projects[dir] = null
 		var project_file = dir.path_join("project.godot")
 		if FileUtil.file_exists(project_file):
 			const PROJECT_ITEM = preload("res://src/scene/project_item.tscn")
 			var item = PROJECT_ITEM.instantiate()
-			item_container.add_child(item)
-			item.path = dir
 			item.selected.connect(
 				func():
 					if last_selected_item:
@@ -49,6 +51,23 @@ func add_file(dir: String):
 				func():
 					self.edit_project.emit(dir)
 			)
-			projects[dir] = null
+			item_container.add_child(item)
+			item.path = dir
 			if init_status:
 				Config.Hide.godot_projects_dir_list.get_value().append(dir)
+
+func remove_file(dir: String):
+	if projects.has(dir):
+		for child in item_container.get_children():
+			if child.path == dir:
+				child.queue_free()
+				break
+		Config.Hide.godot_projects_dir_list.get_value().erase(dir)
+
+
+func select(idx: int):
+	if idx >= item_container.get_child_count():
+		idx = item_container.get_child_count() - 1
+	elif idx < -1:
+		idx = 0
+	item_container.get_child(idx).select_status = true

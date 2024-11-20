@@ -13,6 +13,12 @@ signal double_clicked
 
 const SELECTED_STYLE = preload("res://src/assets/selected.tres")
 
+@export var disabled: bool = false:
+	set(v):
+		if disabled != v:
+			disabled = v
+			select_status = not select_status
+			select_status = not select_status
 @export var path: String:
 	set(v):
 		if path != v:
@@ -39,7 +45,7 @@ const SELECTED_STYLE = preload("res://src/assets/selected.tres")
 @export var select_status: bool:
 	set(v):
 		if select_status != v:
-			select_status = v
+			select_status = v and not disabled
 			select_rect.editor_only = not select_status
 			if select_status:
 				panel.modulate.a = 1
@@ -72,8 +78,6 @@ func _init() -> void:
 func _gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			select_status = true
 			if event.double_click:
-				select_status = true
 				self.double_clicked.emit()
-			else:
-				select_status = not select_status

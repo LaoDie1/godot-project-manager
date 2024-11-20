@@ -28,8 +28,9 @@ func _ready() -> void:
 		w.position = Config.Hide.main_win_position.get_value(Vector2(50,20))
 	w.size_changed.connect(
 		func():
-			Config.Hide.main_win_size.update(w.size)
-			Config.Hide.main_win_position.update(w.position)
+			if w.mode == Window.MODE_WINDOWED:
+				Config.Hide.main_win_size.update(w.size)
+				Config.Hide.main_win_position.update(w.position)
 	)
 	Config.Hide.last_scan_projects_path.bind_property(scan_projects_dialog, "current_path", true)
 
@@ -71,3 +72,14 @@ func _on_projects_item_container_edit_project(project_dir: String) -> void:
 func _on_show_project_dir_button_pressed() -> void:
 	var item = projects_item_container.last_selected_item
 	FileUtil.shell_open(item.path)
+
+func _on_edit_button_pressed() -> void:
+	var item = projects_item_container.last_selected_item
+	_on_projects_item_container_edit_project(item.path)
+
+
+func _on_remove_button_pressed() -> void:
+	var item = projects_item_container.last_selected_item as Control
+	var idx = item.get_index()
+	projects_item_container.remove_file(item.path)
+	projects_item_container.select(idx-1)
