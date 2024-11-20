@@ -10,9 +10,10 @@ config_version=5
 
 [application]
 
-config/name="项目管理器"
+config/name="Godot Engine - 项目管理器"
 run/main_scene="res://src/main.tscn"
 config/features=PackedStringArray("4.3")
+run/low_processor_mode=true
 
 [autoload]
 
@@ -29,4 +30,3 @@ enabled=PackedStringArray("res://addons/apprentice/plugin.cfg", "res://addons/sc
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
-environment/defaults/default_clear_color=Color(1, 1, 1, 1)

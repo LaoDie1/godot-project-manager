@@ -9,7 +9,7 @@ extends Node
 
 
 var last_data_hash := 0
-var config_path := OS.get_user_data_dir().path_join("godot/godot-project-manager/config.data")
+var config_path := OS.get_data_dir().path_join("godot/godot-project-manager/config.data")
 var propertys := {}
 
 
@@ -18,7 +18,7 @@ func _enter_tree() -> void:
 	var last_data := {} 
 	if FileUtil.file_exists(config_path):
 		last_data = FileUtil.read_as_var(config_path)
-	print("加载数据")
+	print("加载数据:", config_path)
 	print(last_data)
 	
 	ScriptUtil.init_class_static_value(

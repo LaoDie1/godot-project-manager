@@ -14,6 +14,7 @@ extends Control
 @onready var scan_projects_dialog: FileDialog = %ScanProjectsDialog
 @onready var projects_item_container = %ProjectsItemContainer
 
+var default_clear_color: Color
 
 func _ready() -> void:
 	for window:Window in [
@@ -21,6 +22,7 @@ func _ready() -> void:
 		godot_running_program_window,
 	]:
 		window.close_requested.connect(window.hide)
+	default_clear_color = RenderingServer.get_default_clear_color()
 	
 	var w : Window = get_viewport()
 	if Config.Hide.main_win_size.get_value():
@@ -83,3 +85,14 @@ func _on_remove_button_pressed() -> void:
 	var idx = item.get_index()
 	projects_item_container.remove_file(item.path)
 	projects_item_container.select(idx-1)
+
+
+func _on_system_theme_timer_timeout() -> void:
+	var window : Window = get_viewport()
+	if DisplayServer.is_dark_mode_supported() and DisplayServer.is_dark_mode():
+		window.theme = null
+		RenderingServer.set_default_clear_color(default_clear_color)
+		
+	else:
+		window.theme = preload("res://src/assets/custom_theme.tres")
+		RenderingServer.set_default_clear_color(Color.WHITE)

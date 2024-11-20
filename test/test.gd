@@ -1,6 +1,9 @@
 @tool
 extends EditorScript
 
+
 func _run() -> void:
-	pass
-	print(FileAccess.get_md5("C:/Users/z/AppData/Roaming/godot-init-plugin/apprentice/node/node2d/move_to/move_to_follow.gd"))
+	if DisplayServer.is_dark_mode_supported() and DisplayServer.is_dark_mode():
+		pass
+	else:
+		pass
