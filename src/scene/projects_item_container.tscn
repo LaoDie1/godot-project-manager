@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://src/scene/projects_item_container.gd" id="1_3rfwk"]
 
-[node name="ProjectsItemContainer" type="Control"]
+[node name="ProjectItemContainer" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

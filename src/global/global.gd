@@ -49,5 +49,16 @@ func _notification(what: int) -> void:
 
 
 ## 编辑godot项目。godot_runner 为 godot.exe 文件
-func edit_godot_project(godot_runner: String, project_dir: String):
-	OS.execute_with_pipe(godot_runner, ["-e", "--path ", project_dir])
+func edit_godot_project(project_dir: String):
+	var godot_runner = Config.Run.godot_runner.get_value("")
+	if godot_runner and FileAccess.file_exists(godot_runner):
+		OS.execute_with_pipe(godot_runner, ["-e", "--path ", project_dir])
+	else:
+		push_error("没有执行的 Godot 程序")
+
+func run_godot_project(project_dir: String):
+	var godot_runner = Config.Run.godot_runner.get_value("")
+	if godot_runner and FileAccess.file_exists(godot_runner):
+		OS.execute_with_pipe(godot_runner, ["--path ", project_dir])
+	else:
+		push_error("没有执行的 Godot 程序")

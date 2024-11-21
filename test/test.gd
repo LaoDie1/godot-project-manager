@@ -3,7 +3,7 @@ extends EditorScript
 
 
 func _run() -> void:
-	if DisplayServer.is_dark_mode_supported() and DisplayServer.is_dark_mode():
-		pass
-	else:
-		pass
+	pass
+	var time = FileAccess.get_modified_time(r"C:\Users\z\Documents\Godot\projects\4.x\godot-project-manager")
+	print( Time.get_datetime_string_from_unix_time(time) )
+	

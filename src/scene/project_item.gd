@@ -5,13 +5,15 @@
 # - datetime: 2024-11-21 01:07:11
 # - version: 4.3.0.stable
 #============================================================
+class_name ProjectItem
 extends MarginContainer
 
+
 signal selected
-signal double_clicked
+signal activated
 
 
-const SELECTED_STYLE = preload("res://src/assets/selected.tres")
+const SELECTED_STYLE = preload("res://src/assets/selected_panel_style.tres")
 
 @export var disabled: bool = false:
 	set(v):
@@ -34,19 +36,17 @@ const SELECTED_STYLE = preload("res://src/assets/selected.tres")
 			var icon_image = FileUtil.load_image(icon_file)
 			var icon = ImageTexture.create_from_image(icon_image)
 			texture_rect.texture = icon
-			var project_name = project.get_value("application", "config/name")
+			project_name = project.get_value("application", "config/name")
 			label.text = project_name
 			self.tooltip_text = path
 			var version = project.get_value("application", "config/features")
 			version_label.text = str(version[0])
-			var time = FileAccess.get_modified_time(project_file)
-			modified_time = Time.get_datetime_string_from_unix_time(time)
-			modified_time_label.text = modified_time.replace("T", " ")
+			modified_time = FileAccess.get_modified_time(path)
+			modified_time_label.text = Time.get_datetime_string_from_unix_time(modified_time).replace("T", " ")
 @export var select_status: bool:
 	set(v):
 		if select_status != v:
 			select_status = v and not disabled
-			select_rect.editor_only = not select_status
 			if select_status:
 				panel.modulate.a = 1
 				panel.add_theme_stylebox_override("panel", SELECTED_STYLE)
@@ -57,11 +57,11 @@ const SELECTED_STYLE = preload("res://src/assets/selected.tres")
 @onready var texture_rect: TextureRect = %TextureRect
 @onready var label: Label = %Label
 @onready var panel: Panel = $Panel
-@onready var select_rect: ReferenceRect = $SelectRect
 @onready var version_label: Label = %VersionLabel
 @onready var modified_time_label: Label = %ModifiedTimeLabel
 
-var modified_time = ""
+var project_name := ""
+var modified_time := 0
 
 
 func _init() -> void:
@@ -80,4 +80,4 @@ func _gui_input(event: InputEvent) -> void:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 			select_status = true
 			if event.double_click:
-				self.double_clicked.emit()
+				self.activated.emit()

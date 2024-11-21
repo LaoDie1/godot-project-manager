@@ -8,6 +8,8 @@
 extends Control
 
 
+signal created_project(dir_path)
+
 @onready var project_name_line_edit: LineEdit = %ProjectNameLineEdit
 @onready var project_path_line_edit: LineEdit = %ProjectPathLineEdit
 @onready var select_projects_dir_dialog: FileDialog = %SelectProjectsDirDialog
@@ -93,9 +95,9 @@ func _on_create_button_pressed() -> void:
 				var plugin_dir_path = init_plugin_dir.path_join(dir_name)
 				print("  复制到：", addons_dir_path.path_join(dir_name))
 				FileUtil.copy_directory_and_file(plugin_dir_path, addons_dir_path.path_join(dir_name))
-		
+		self.created_project.emit(dir_path)
 		# 创建项目
-		Global.edit_godot_project(godot_runner, dir_path)
+		Global.edit_godot_project(dir_path)
 		Engine.get_main_loop().quit()
 		
 	else:

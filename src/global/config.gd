@@ -16,6 +16,7 @@ static var default_data : Dictionary = {
 	"/Project/init_plugin_dir": "",
 	"/Hide/godot_projects_dir_list": [],
 	"/Hide/last_scan_projects_path": OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS),
+	"/Hide/sort_mode": 0,
 }
 
 
@@ -32,3 +33,4 @@ class Hide:
 	static var main_win_position : BindPropertyItem
 	static var godot_projects_dir_list : BindPropertyItem
 	static var last_scan_projects_path : BindPropertyItem
+	static var sort_mode : BindPropertyItem
