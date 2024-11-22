@@ -26,7 +26,7 @@ func _ready() -> void:
 			for dir in files:
 				add_item(dir)
 	)
-	for dir in Config.Hide.godot_projects_dir_list.get_value([]):
+	for dir in Config.Hide.projects_dir_list.get_value([]):
 		add_item(dir)
 	self.init_status = true
 	if item_container.get_child_count() > 0:
@@ -75,7 +75,7 @@ func add_item(dir: String) -> void:
 			item_container.add_child(item)
 			item.path = dir
 			if init_status:
-				Config.Hide.godot_projects_dir_list.get_value().append(dir)
+				Config.Hide.projects_dir_list.get_value().append(dir)
 
 
 func remove_item(dir: String) -> void:
@@ -84,7 +84,7 @@ func remove_item(dir: String) -> void:
 			if child.path == dir:
 				child.queue_free()
 				break
-		Config.Hide.godot_projects_dir_list.get_value().erase(dir)
+		Config.Hide.projects_dir_list.get_value().erase(dir)
 
 
 func select(idx: int) -> void:
@@ -92,7 +92,8 @@ func select(idx: int) -> void:
 		idx = item_container.get_child_count() - 1
 	elif idx < -1:
 		idx = 0
-	item_container.get_child(idx).select_status = true
+	if idx > -1:
+		item_container.get_child(idx).select_status = true
 
 
 func get_selected_items() -> Array[ProjectItem]:

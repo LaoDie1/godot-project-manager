@@ -16,30 +16,32 @@ extends Control
 @onready var filter_timer: Timer = $FilterTimer
 @onready var filter_line_edit: LineEdit = %FilterLineEdit
 @onready var sort_item_button: OptionButton = %SortItemButton
+@onready var project_items_split_container: HSplitContainer = %ProjectItemsSplitContainer
 
-var default_clear_color: Color
+@onready var default_clear_color: Color = RenderingServer.get_default_clear_color()
 
 
 func _ready() -> void:
-	for window:Window in [
+	var window : Window = get_viewport()
+	if Config.Hide.main_win_size.get_value():
+		window.size = Config.Hide.main_win_size.get_value()
+		window.position = Config.Hide.main_win_position.get_value(Vector2(50,20))
+	var update_window_data_method := func():
+		if window.mode == Window.MODE_WINDOWED:
+			Config.Hide.main_win_size.update(window.size)
+			Config.Hide.main_win_position.update(window.position)
+	window.size_changed.connect(update_window_data_method)
+	Global.quit_program.connect(update_window_data_method)
+	for w:Window in [
 		create_new_project_window,
 		godot_running_program_window,
 	]:
-		window.close_requested.connect(window.hide)
-	default_clear_color = RenderingServer.get_default_clear_color()
+		w.close_requested.connect(w.hide)
 	
-	var w : Window = get_viewport()
-	if Config.Hide.main_win_size.get_value():
-		w.size = Config.Hide.main_win_size.get_value()
-		w.position = Config.Hide.main_win_position.get_value(Vector2(50,20))
-	w.size_changed.connect(
-		func():
-			if w.mode == Window.MODE_WINDOWED:
-				Config.Hide.main_win_size.update(w.size)
-				Config.Hide.main_win_position.update(w.position)
-	)
 	Config.Hide.last_scan_projects_path.bind_property(scan_projects_dialog, "current_path", true)
 	Config.Hide.sort_mode.bind_method(sort_item_button.select, true)
+	Config.Hide.project_split_offset.bind_property(project_items_split_container, "split_offset", true)
+	
 	sort_items(sort_item_button.selected)
 	projects_item_container.select(0)
 	update_program_theme()
@@ -54,6 +56,7 @@ func update_program_theme() -> void:
 		else:
 			window.theme = preload("res://src/assets/custom_theme.tres")
 			RenderingServer.set_default_clear_color(Color.WHITE)
+
 
 func sort_items(index: int) -> void:
 	var type = sort_item_button.get_item_text(index)
@@ -82,7 +85,7 @@ func scan_projects(dir: String) -> void:
 		if DirAccess.dir_exists_absolute(path):
 			if FileAccess.file_exists(path.path_join("project.godot")):
 				projects_item_container.add_item(path)
-
+	sort_items(sort_item_button.selected)
 
 func edit_project(project_dir: String) -> void:
 	Global.edit_godot_project(project_dir)
@@ -120,6 +123,7 @@ func update_filter_items() -> void:
 	for item in projects_item_container.get_items():
 		item.visible = item.project_name.to_lower().contains(filter_text) or item.path.contains(filter_text)
 
+
 func _on_add_project_button_pressed() -> void:
 	create_new_project_window.popup_centered()
 
@@ -134,3 +138,6 @@ func _on_filter_line_edit_text_changed(new_text: String) -> void:
 
 func _on_create_new_project_created_project(dir_path: Variant) -> void:
 	projects_item_container.add_item(dir_path)
+
+func _on_project_items_split_container_dragged(offset: int) -> void:
+	Config.Hide.project_split_offset.update(offset)

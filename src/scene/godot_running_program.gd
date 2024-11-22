@@ -15,6 +15,8 @@ extends Control
 @onready var projects_dir_line_edit: LineEdit = %ProjectsDirLineEdit
 @onready var select_init_plugin_dir_dialog: FileDialog = $SelectInitPluginDirDialog
 @onready var init_plugin_dir_line_edit: LineEdit = %InitPluginDirLineEdit
+@onready var select_project_template_dialog: FileDialog = $SelectProjectTemplateDialog
+@onready var project_template_dir_line_edit: LineEdit = %ProjectTemplateDirLineEdit
 
 
 func _ready() -> void:
@@ -34,6 +36,15 @@ func _ready() -> void:
 	Config.Project.project_dir.bind_property(projects_dir_line_edit, "text", true)
 	Config.Project.project_dir.bind_property(select_projects_dir_file_dialog, "current_path", true)
 	Config.Project.init_plugin_dir.bind_property(init_plugin_dir_line_edit, "text", true)
+	Config.Project.project_template_dir.bind_property(project_template_dir_line_edit, "text", true)
+	Global.quit_program.connect(
+		func():
+			Config.Project.project_dir.update(projects_dir_line_edit.text)
+			if DirAccess.dir_exists_absolute(project_template_dir_line_edit.text):
+				Config.Project.project_template_dir.update(project_template_dir_line_edit.text)
+			if DirAccess.dir_exists_absolute(init_plugin_dir_line_edit.text):
+				Config.Project.init_plugin_dir.update(init_plugin_dir_line_edit.text)
+	)
 
 
 func drop_files(files):
@@ -54,6 +65,25 @@ func add_file(file: String):
 	update_data_timer.start()
 
 
+func show_selected_runner_directory() -> void:
+	var idxs = godot_runner_item_list.get_selected_items()
+	if not idxs.is_empty():
+		var idx = idxs[0]
+		var path = godot_runner_item_list.get_item_metadata(idx)
+		FileUtil.shell_open(path)
+
+func set_project_template_dir(dir: String) -> void:
+	Config.Project.project_template_dir.update(dir)
+
+func hide_window() -> void:
+	var w : Window = get_viewport()
+	if w:
+		w.hide()
+
+
+#============================================================
+#  连接信号
+#============================================================
 func _on_update_data_timer_timeout() -> void:
 	var list := []
 	for i in godot_runner_item_list.item_count:
@@ -65,14 +95,7 @@ func _on_item_list_item_selected(index: int) -> void:
 	Config.Run.godot_runner.update( godot_runner_item_list.get_item_metadata(index) )
 
 func _on_item_list_item_activated(index: int) -> void:
-	_on_close_button_pressed()
-
-func _on_close_button_pressed() -> void:
-	var w : Window = get_viewport()
-	if w:
-		w.hide()
-		Config.Project.project_dir.update(projects_dir_line_edit.text)
-		Config.Project.init_plugin_dir.update(init_plugin_dir_line_edit.text)
+	hide_window()
 
 func _on_select_project_dir_button_pressed() -> void:
 	if DirAccess.dir_exists_absolute(projects_dir_line_edit.text):
@@ -90,3 +113,6 @@ func _on_select_init_plugin_dir_button_pressed() -> void:
 
 func _on_select_init_plugin_dir_dialog_dir_selected(dir: String) -> void:
 	Config.Project.init_plugin_dir.update(dir)
+
+func _on_select_project_template_button_pressed() -> void:
+	select_project_template_dialog.popup_centered()

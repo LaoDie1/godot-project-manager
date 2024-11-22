@@ -68,12 +68,17 @@ func _on_create_button_pressed() -> void:
 	if dir_path.get_file().strip_edges() == "":
 		push_error("不能创建空项目")
 		return
-	
 	var godot_runner = Config.Run.godot_runner.get_value("")
 	if FileUtil.file_exists(godot_runner):
-		# 项目配置
 		if DirAccess.dir_exists_absolute(dir_path):
-			OS.move_to_trash(dir_path)
+			FileUtil.remove(dir_path) # 删除旧项目
+		# 初始化模板
+		if Config.Project.project_template_dir.get_value():
+			var template_dir : String = Config.Project.project_template_dir.get_value()
+			if DirAccess.dir_exists_absolute(template_dir):
+				print("复制模板到：", dir_path)
+				FileUtil.copy_directory_and_file(template_dir, dir_path)
+		# 项目配置
 		FileUtil.make_dir_if_not_exists(dir_path)
 		var project = ConfigFile.new()
 		project.set_value("", "config_version", 5)
@@ -82,21 +87,22 @@ func _on_create_button_pressed() -> void:
 		project.set_value("application", "config/icon", "res://icon.svg")
 		var projcet_file_path = dir_path.path_join("project.godot")
 		project.save(projcet_file_path)
-		# 图标文件
-		DirAccess.copy_absolute("res://src/assets/icon.svg", dir_path.path_join("icon.svg"))
-		# 初始化插件
+		DirAccess.copy_absolute("res://src/assets/icon.svg", dir_path.path_join("icon.svg")) # 图标文件
+		# 初始化插件，插件会覆盖模板
 		if Config.Project.init_plugin_dir.get_value():
-			var addons_dir_path = dir_path.path_join("addons")
-			DirAccess.make_dir_absolute(addons_dir_path)
+			var addons_dir_path : String = dir_path.path_join("addons")
+			FileUtil.make_dir_if_not_exists(addons_dir_path)
 			# 复制到插件里
 			var init_plugin_dir := str(Config.Project.init_plugin_dir.get_value(""))
 			print("插件目录：", init_plugin_dir, DirAccess.get_directories_at(init_plugin_dir))
 			for dir_name in DirAccess.get_directories_at(init_plugin_dir):
 				var plugin_dir_path = init_plugin_dir.path_join(dir_name)
-				print("  复制到：", addons_dir_path.path_join(dir_name))
+				print("  复制插件到：", addons_dir_path.path_join(dir_name))
 				FileUtil.copy_directory_and_file(plugin_dir_path, addons_dir_path.path_join(dir_name))
+		if not Config.Hide.projects_dir_list.get_value([]).has(dir_path):
+			Config.Hide.projects_dir_list.get_value([]).append(dir_path)
+		# 已创建完成
 		self.created_project.emit(dir_path)
-		# 创建项目
 		Global.edit_godot_project(dir_path)
 		Engine.get_main_loop().quit()
 		

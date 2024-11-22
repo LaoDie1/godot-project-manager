@@ -83,7 +83,7 @@ func update(value) -> void:
 			object = arg[0]
 			if is_instance_valid(object):
 				property = arg[1]
-				if object[property] != value:
+				if typeof(object[property]) != typeof(value) or object[property] != value:
 					object.set(property, value)
 		value_changed.emit(previous, value)
 

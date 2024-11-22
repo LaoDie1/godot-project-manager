@@ -14,6 +14,8 @@ signal activated
 
 
 const SELECTED_STYLE = preload("res://src/assets/selected_panel_style.tres")
+const ONE_HOUR_SECOND = 60 * 60
+
 
 @export var disabled: bool = false:
 	set(v):
@@ -39,10 +41,11 @@ const SELECTED_STYLE = preload("res://src/assets/selected_panel_style.tres")
 			project_name = project.get_value("application", "config/name")
 			label.text = project_name
 			self.tooltip_text = path
-			var version = project.get_value("application", "config/features")
-			version_label.text = str(version[0])
-			modified_time = FileAccess.get_modified_time(path)
-			modified_time_label.text = Time.get_datetime_string_from_unix_time(modified_time).replace("T", " ")
+			var version = project.get_value("application", "config/features", null)
+			if version:
+				version_label.text = str(version[0])
+			modified_time = FileAccess.get_modified_time(path) + 8 * ONE_HOUR_SECOND
+			modified_time_label.text = Time.get_datetime_string_from_unix_time(modified_time, true)
 @export var select_status: bool:
 	set(v):
 		if select_status != v:

@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://src/scene/godot_running_program.gd" id="1_ey1yc"]
 [ext_resource type="Shortcut" uid="uid://cel18f0mes7rn" path="res://src/assets/window_input_esc.tres" id="2_hmaim"]
 
-[sub_resource type="Image" id="Image_1uwur"]
+[sub_resource type="Image" id="Image_m5cvh"]
 data = {
 "data": PackedByteArray(255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 90, 90, 90, 184, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 181, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 91, 91, 91, 73, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 181, 255, 255, 255, 0, 255, 255, 255, 0, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 255, 255, 255, 0, 255, 255, 255, 0, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 255, 255, 255, 0, 255, 255, 255, 0, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 255, 255, 255, 0, 255, 255, 255, 0, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 255, 255, 255, 0, 255, 255, 255, 0, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 228, 91, 91, 91, 131, 90, 90, 90, 130, 90, 90, 90, 201, 90, 90, 90, 130, 90, 90, 90, 130, 90, 90, 90, 206, 90, 90, 90, 138, 91, 91, 91, 140, 255, 255, 255, 0, 255, 255, 255, 0, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 231, 102, 102, 102, 20, 255, 255, 255, 1, 255, 255, 255, 1, 255, 255, 255, 0, 255, 255, 255, 1, 255, 255, 255, 1, 255, 255, 255, 0, 255, 255, 255, 1, 255, 255, 255, 1, 255, 255, 255, 0, 255, 255, 255, 0, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 147, 255, 255, 255, 0, 91, 91, 91, 194, 90, 90, 90, 193, 255, 255, 255, 0, 91, 91, 91, 194, 90, 90, 90, 193, 255, 255, 255, 0, 91, 91, 91, 194, 90, 90, 90, 193, 255, 255, 255, 0, 255, 255, 255, 0, 90, 90, 90, 181, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 159, 255, 255, 255, 0, 91, 91, 91, 191, 90, 90, 90, 189, 255, 255, 255, 0, 91, 91, 91, 191, 90, 90, 90, 189, 255, 255, 255, 0, 91, 91, 91, 191, 90, 90, 90, 189, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0),
 "format": "RGBA8",
@@ -13,7 +13,7 @@ data = {
 }
 
 [sub_resource type="ImageTexture" id="ImageTexture_y1dpa"]
-image = SubResource("Image_1uwur")
+image = SubResource("Image_m5cvh")
 
 [node name="GodotRunningProgram" type="Control"]
 layout_mode = 3
@@ -35,6 +35,13 @@ access = 2
 [node name="SelectInitPluginDirDialog" type="FileDialog" parent="."]
 title = "Open a Directory"
 size = Vector2i(700, 400)
+ok_button_text = "Select Current Folder"
+file_mode = 2
+access = 2
+
+[node name="SelectProjectTemplateDialog" type="FileDialog" parent="."]
+title = "Open a Directory"
+size = Vector2i(700, 500)
 ok_button_text = "Select Current Folder"
 file_mode = 2
 access = 2
@@ -72,19 +79,41 @@ size_flags_vertical = 3
 
 [node name="GridContainer" type="GridContainer" parent="MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
-columns = 3
+columns = 2
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
 text = "项目创建到："
 
-[node name="ProjectsDirLineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/VBoxContainer/GridContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ProjectsDirLineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/VBoxContainer/GridContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "创建的项目将会在这个目录里"
 
-[node name="SelectProjectsDirButton" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer/GridContainer"]
+[node name="SelectProjectsDirButton" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer/GridContainer/HBoxContainer"]
+layout_mode = 2
+icon = SubResource("ImageTexture_y1dpa")
+
+[node name="Label3" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "项目模板："
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ProjectTemplateDirLineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/VBoxContainer/GridContainer/HBoxContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "创建的项目将以此目录下的文件，作为默认文件内容"
+
+[node name="SelectProjectTemplateButton" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer/GridContainer/HBoxContainer3"]
 layout_mode = 2
 icon = SubResource("ImageTexture_y1dpa")
 
@@ -92,34 +121,62 @@ icon = SubResource("ImageTexture_y1dpa")
 layout_mode = 2
 text = "默认插件目录："
 
-[node name="InitPluginDirLineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/VBoxContainer/GridContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="InitPluginDirLineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/VBoxContainer/GridContainer/HBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "这个目录的插件将会默认添加到项目中"
 
-[node name="SelectInitPluginDirButton" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer/GridContainer"]
+[node name="SelectInitPluginDirButton" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer/GridContainer/HBoxContainer2"]
 layout_mode = 2
 icon = SubResource("ImageTexture_y1dpa")
 
 [node name="GodotRunnerItemList" type="ItemList" parent="MarginContainer/VBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 3
 fixed_icon_size = Vector2i(32, 32)
 
-[node name="CloseButton" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Control" type="Control" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ShowRunnerDirButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "打开文件目录"
+
+[node name="Control2" type="Control" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CloseButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(120, 50)
 layout_mode = 2
 size_flags_horizontal = 4
 shortcut = ExtResource("2_hmaim")
 text = "Close"
 
+[node name="Control3" type="Control" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
 [connection signal="dir_selected" from="SelectProjectsDirFileDialog" to="." method="_on_select_projects_dir_file_dialog_dir_selected"]
 [connection signal="dir_selected" from="SelectInitPluginDirDialog" to="." method="_on_select_init_plugin_dir_dialog_dir_selected"]
+[connection signal="dir_selected" from="SelectProjectTemplateDialog" to="." method="set_project_template_dir"]
 [connection signal="timeout" from="UpdateDataTimer" to="." method="_on_update_data_timer_timeout"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/VBoxContainer/GridContainer/SelectProjectsDirButton" to="." method="_on_select_project_dir_button_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/VBoxContainer/GridContainer/SelectInitPluginDirButton" to="." method="_on_select_init_plugin_dir_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/VBoxContainer/GridContainer/HBoxContainer/SelectProjectsDirButton" to="." method="_on_select_project_dir_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/VBoxContainer/GridContainer/HBoxContainer3/SelectProjectTemplateButton" to="." method="_on_select_project_template_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/VBoxContainer/GridContainer/HBoxContainer2/SelectInitPluginDirButton" to="." method="_on_select_init_plugin_dir_button_pressed"]
 [connection signal="item_activated" from="MarginContainer/VBoxContainer/VBoxContainer/GodotRunnerItemList" to="." method="_on_item_list_item_activated"]
 [connection signal="item_selected" from="MarginContainer/VBoxContainer/VBoxContainer/GodotRunnerItemList" to="." method="_on_item_list_item_selected"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/ShowRunnerDirButton" to="." method="show_selected_runner_directory"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/CloseButton" to="." method="hide_window"]

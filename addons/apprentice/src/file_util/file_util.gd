@@ -476,7 +476,14 @@ static func copy_directory(path: String, new_path: String):
 
 ## 复制文件
 static func copy_file(path: String, new_path: String):
-	DirAccess.copy_absolute(path, new_path)
+	if DirAccess.dir_exists_absolute(path):
+		DirAccess.copy_absolute(path, new_path)
+	else:
+		# 这种方式可以复制 res:// 中的文件到外部
+		var bytes = FileAccess.get_file_as_bytes(path)
+		var file = FileAccess.open(new_path, FileAccess.WRITE)
+		file.store_buffer(bytes)
+		file.flush()
 
 
 const BYTE_QUANTITIES: Array[int] = [

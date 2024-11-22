@@ -8,6 +8,9 @@
 extends Node
 
 
+signal quit_program
+
+
 var last_data_hash := 0
 var config_path := OS.get_data_dir().path_join("godot/godot-project-manager/config.data")
 var propertys := {}
@@ -37,8 +40,8 @@ func _enter_tree() -> void:
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
-		Config.Hide.main_win_position.update(get_viewport().position)
-		
+		self.quit_program.emit()
+		# 保存数据
 		var data := {}
 		for bind_property:BindPropertyItem in propertys.values():
 			data[bind_property.get_name()] = bind_property.get_value()
