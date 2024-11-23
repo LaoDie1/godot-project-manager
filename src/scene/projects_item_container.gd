@@ -26,7 +26,7 @@ func _ready() -> void:
 			for dir in files:
 				add_item(dir)
 	)
-	for dir in Config.Hide.projects_dir_list.get_value([]):
+	for dir in Config.Project.projects_dir_list.get_value([]):
 		add_item(dir)
 	self.init_status = true
 	if item_container.get_child_count() > 0:
@@ -75,7 +75,7 @@ func add_item(dir: String) -> void:
 			item_container.add_child(item)
 			item.path = dir
 			if init_status:
-				Config.Hide.projects_dir_list.get_value().append(dir)
+				Config.Project.projects_dir_list.get_value().append(dir)
 
 
 func remove_item(dir: String) -> void:
@@ -84,7 +84,7 @@ func remove_item(dir: String) -> void:
 			if child.path == dir:
 				child.queue_free()
 				break
-		Config.Hide.projects_dir_list.get_value().erase(dir)
+		Config.Project.projects_dir_list.get_value().erase(dir)
 
 
 func select(idx: int) -> void:

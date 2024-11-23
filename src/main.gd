@@ -23,13 +23,13 @@ extends Control
 
 func _ready() -> void:
 	var window : Window = get_viewport()
-	if Config.Hide.main_win_size.get_value():
-		window.size = Config.Hide.main_win_size.get_value()
-		window.position = Config.Hide.main_win_position.get_value(Vector2(50,20))
+	if Config.Misc.main_win_size.get_value():
+		window.size = Config.Misc.main_win_size.get_value()
+		window.position = Config.Misc.main_win_position.get_value(Vector2(50,20))
 	var update_window_data_method := func():
 		if window.mode == Window.MODE_WINDOWED:
-			Config.Hide.main_win_size.update(window.size)
-			Config.Hide.main_win_position.update(window.position)
+			Config.Misc.main_win_size.update(window.size)
+			Config.Misc.main_win_position.update(window.position)
 	window.size_changed.connect(update_window_data_method)
 	Global.quit_program.connect(update_window_data_method)
 	for w:Window in [
@@ -38,24 +38,37 @@ func _ready() -> void:
 	]:
 		w.close_requested.connect(w.hide)
 	
-	Config.Hide.last_scan_projects_path.bind_property(scan_projects_dialog, "current_path", true)
-	Config.Hide.sort_mode.bind_method(sort_item_button.select, true)
-	Config.Hide.project_split_offset.bind_property(project_items_split_container, "split_offset", true)
+	Config.Misc.last_scan_projects_path.bind_property(scan_projects_dialog, "current_path", true)
+	Config.Misc.sort_mode.bind_method(sort_item_button.select, true)
+	Config.Misc.project_split_offset.bind_property(project_items_split_container, "split_offset", true)
+	Config.Misc.theme_color.bind_method(
+		func(value):
+			self.update_program_theme()
+			,
+		true
+	)
 	
 	sort_items(sort_item_button.selected)
 	projects_item_container.select(0)
-	update_program_theme()
 
 
 func update_program_theme() -> void:
 	if DisplayServer.is_dark_mode_supported():
 		var window : Window = get_viewport()
-		if DisplayServer.is_dark_mode():
+		var type
+		if Config.Misc.theme_color.get_value(0) == 0:
+			type = "light" if not DisplayServer.is_dark_mode() else "dark"
+		else:
+			type = "light" if Config.Misc.theme_color.get_value(0) == 1 else "dark"
+		
+		if type == "dark":
 			window.theme = null
 			RenderingServer.set_default_clear_color(default_clear_color)
-		else:
+		elif type == "light":
 			window.theme = preload("res://src/assets/custom_theme.tres")
 			RenderingServer.set_default_clear_color(Color.WHITE)
+		else:
+			push_error("错误的主题类型：", type)
 
 
 func sort_items(index: int) -> void:
@@ -76,10 +89,10 @@ func sort_items(index: int) -> void:
 				func(a:ProjectItem, b:ProjectItem):
 					return a.path < b.path
 			)
-	Config.Hide.sort_mode.update(index)
+	Config.Misc.sort_mode.update(index)
 
 func scan_projects(dir: String) -> void:
-	Config.Hide.last_scan_projects_path.update(scan_projects_dialog.current_path)
+	Config.Misc.last_scan_projects_path.update(scan_projects_dialog.current_path)
 	var paths = FileUtil.scan_directory(dir, false)
 	for path in paths:
 		if DirAccess.dir_exists_absolute(path):
@@ -140,4 +153,4 @@ func _on_create_new_project_created_project(dir_path: Variant) -> void:
 	projects_item_container.add_item(dir_path)
 
 func _on_project_items_split_container_dragged(offset: int) -> void:
-	Config.Hide.project_split_offset.update(offset)
+	Config.Misc.project_split_offset.update(offset)

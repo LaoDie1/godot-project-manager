@@ -17,6 +17,7 @@ extends Control
 @onready var init_plugin_dir_line_edit: LineEdit = %InitPluginDirLineEdit
 @onready var select_project_template_dialog: FileDialog = $SelectProjectTemplateDialog
 @onready var project_template_dir_line_edit: LineEdit = %ProjectTemplateDirLineEdit
+@onready var program_theme_button: OptionButton = %ProgramThemeButton
 
 
 func _ready() -> void:
@@ -45,6 +46,7 @@ func _ready() -> void:
 			if DirAccess.dir_exists_absolute(init_plugin_dir_line_edit.text):
 				Config.Project.init_plugin_dir.update(init_plugin_dir_line_edit.text)
 	)
+	Config.Misc.theme_color.bind_property(program_theme_button, "selected", true)
 
 
 func drop_files(files):
@@ -116,3 +118,6 @@ func _on_select_init_plugin_dir_dialog_dir_selected(dir: String) -> void:
 
 func _on_select_project_template_button_pressed() -> void:
 	select_project_template_dialog.popup_centered()
+
+func _on_program_theme_button_item_selected(index: int) -> void:
+	Config.Misc.theme_color.update(index)

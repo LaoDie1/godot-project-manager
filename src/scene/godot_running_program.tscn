@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://src/scene/godot_running_program.gd" id="1_ey1yc"]
 [ext_resource type="Shortcut" uid="uid://cel18f0mes7rn" path="res://src/assets/window_input_esc.tres" id="2_hmaim"]
 
-[sub_resource type="Image" id="Image_m5cvh"]
+[sub_resource type="Image" id="Image_5smrk"]
 data = {
 "data": PackedByteArray(255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 90, 90, 90, 184, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 181, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 91, 91, 91, 73, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 181, 255, 255, 255, 0, 255, 255, 255, 0, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 255, 255, 255, 0, 255, 255, 255, 0, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 255, 255, 255, 0, 255, 255, 255, 0, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 255, 255, 255, 0, 255, 255, 255, 0, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 255, 255, 255, 0, 255, 255, 255, 0, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 228, 91, 91, 91, 131, 90, 90, 90, 130, 90, 90, 90, 201, 90, 90, 90, 130, 90, 90, 90, 130, 90, 90, 90, 206, 90, 90, 90, 138, 91, 91, 91, 140, 255, 255, 255, 0, 255, 255, 255, 0, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 231, 102, 102, 102, 20, 255, 255, 255, 1, 255, 255, 255, 1, 255, 255, 255, 0, 255, 255, 255, 1, 255, 255, 255, 1, 255, 255, 255, 0, 255, 255, 255, 1, 255, 255, 255, 1, 255, 255, 255, 0, 255, 255, 255, 0, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 147, 255, 255, 255, 0, 91, 91, 91, 194, 90, 90, 90, 193, 255, 255, 255, 0, 91, 91, 91, 194, 90, 90, 90, 193, 255, 255, 255, 0, 91, 91, 91, 194, 90, 90, 90, 193, 255, 255, 255, 0, 255, 255, 255, 0, 90, 90, 90, 181, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 255, 90, 90, 90, 159, 255, 255, 255, 0, 91, 91, 91, 191, 90, 90, 90, 189, 255, 255, 255, 0, 91, 91, 91, 191, 90, 90, 90, 189, 255, 255, 255, 0, 91, 91, 91, 191, 90, 90, 90, 189, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0),
 "format": "RGBA8",
@@ -13,7 +13,7 @@ data = {
 }
 
 [sub_resource type="ImageTexture" id="ImageTexture_y1dpa"]
-image = SubResource("Image_m5cvh")
+image = SubResource("Image_5smrk")
 
 [node name="GodotRunningProgram" type="Control"]
 layout_mode = 3
@@ -23,7 +23,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ey1yc")
-metadata/_edit_lock_ = true
 
 [node name="SelectProjectsDirFileDialog" type="FileDialog" parent="."]
 title = "Open a Directory"
@@ -135,6 +134,22 @@ placeholder_text = "这个目录的插件将会默认添加到项目中"
 layout_mode = 2
 icon = SubResource("ImageTexture_y1dpa")
 
+[node name="Label4" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "主题颜色："
+
+[node name="ProgramThemeButton" type="OptionButton" parent="MarginContainer/VBoxContainer/VBoxContainer/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+selected = 0
+item_count = 3
+popup/item_0/text = "跟随系统"
+popup/item_1/text = "亮色"
+popup/item_1/id = 1
+popup/item_2/text = "暗色"
+popup/item_2/id = 2
+
 [node name="GodotRunnerItemList" type="ItemList" parent="MarginContainer/VBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
@@ -163,7 +178,7 @@ custom_minimum_size = Vector2(120, 50)
 layout_mode = 2
 size_flags_horizontal = 4
 shortcut = ExtResource("2_hmaim")
-text = "Close"
+text = "关闭"
 
 [node name="Control3" type="Control" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -176,6 +191,7 @@ size_flags_horizontal = 3
 [connection signal="pressed" from="MarginContainer/VBoxContainer/VBoxContainer/GridContainer/HBoxContainer/SelectProjectsDirButton" to="." method="_on_select_project_dir_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/VBoxContainer/GridContainer/HBoxContainer3/SelectProjectTemplateButton" to="." method="_on_select_project_template_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/VBoxContainer/GridContainer/HBoxContainer2/SelectInitPluginDirButton" to="." method="_on_select_init_plugin_dir_button_pressed"]
+[connection signal="item_selected" from="MarginContainer/VBoxContainer/VBoxContainer/GridContainer/ProgramThemeButton" to="." method="_on_program_theme_button_item_selected"]
 [connection signal="item_activated" from="MarginContainer/VBoxContainer/VBoxContainer/GodotRunnerItemList" to="." method="_on_item_list_item_activated"]
 [connection signal="item_selected" from="MarginContainer/VBoxContainer/VBoxContainer/GodotRunnerItemList" to="." method="_on_item_list_item_selected"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/ShowRunnerDirButton" to="." method="show_selected_runner_directory"]

@@ -27,7 +27,7 @@ func _ready() -> void:
 			for dir in files:
 				add_file(dir)
 	)
-	for dir in Config.Hide.projects_dir_list.get_value([]):
+	for dir in Config.Project.projects_dir_list.get_value([]):
 		add_file(dir)
 	self.init_status = true
 
@@ -49,4 +49,4 @@ func add_file(dir: String):
 			self.set_item_tooltip(self.item_count - 1, dir)
 			projects[dir] = null
 			if init_status:
-				Config.Hide.projects_dir_list.get_value().append(dir)
+				Config.Project.projects_dir_list.get_value().append(dir)

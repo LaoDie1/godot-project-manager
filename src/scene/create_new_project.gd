@@ -99,8 +99,8 @@ func _on_create_button_pressed() -> void:
 				var plugin_dir_path = init_plugin_dir.path_join(dir_name)
 				print("  复制插件到：", addons_dir_path.path_join(dir_name))
 				FileUtil.copy_directory_and_file(plugin_dir_path, addons_dir_path.path_join(dir_name))
-		if not Config.Hide.projects_dir_list.get_value([]).has(dir_path):
-			Config.Hide.projects_dir_list.get_value([]).append(dir_path)
+		if not Config.Project.projects_dir_list.get_value([]).has(dir_path):
+			Config.Project.projects_dir_list.get_value([]).append(dir_path)
 		# 已创建完成
 		self.created_project.emit(dir_path)
 		Global.edit_godot_project(dir_path)
