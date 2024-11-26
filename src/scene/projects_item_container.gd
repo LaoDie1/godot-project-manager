@@ -47,7 +47,7 @@ func add_item(dir: String) -> void:
 				func():
 					if shift_select:
 						return
-					if Input.is_key_pressed(KEY_SHIFT):
+					if Input.is_key_label_pressed(KEY_SHIFT):
 						shift_select = true
 						if not last_selected_items.is_empty():
 							var begin = last_selected_items[0].get_index()
