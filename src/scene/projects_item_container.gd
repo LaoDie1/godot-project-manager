@@ -9,7 +9,7 @@ class_name ProjectItemContainer
 extends Control
 
 
-signal edit_project(project_dir: String)
+signal edited_project(project_dir: String)
 
 var projects := {}
 var init_status := false
@@ -70,7 +70,7 @@ func add_item(dir: String) -> void:
 			)
 			item.activated.connect(
 				func():
-					self.edit_project.emit(dir)
+					self.edited_project.emit(dir)
 			)
 			item_container.add_child(item)
 			item.path = dir

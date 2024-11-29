@@ -136,7 +136,18 @@ func update_filter_items() -> void:
 	for item in projects_item_container.get_items():
 		item.visible = item.project_name.to_lower().contains(filter_text) or item.path.contains(filter_text)
 
+func delete_selected_items() -> void:
+	var idx : int = -1
+	for item in projects_item_container.get_selected_items():
+		OS.move_to_trash(item.path)
+		projects_item_container.remove_item(item.path)
+		idx = item.get_index()
+	projects_item_container.select(idx)
 
+
+#============================================================
+#  连接信号
+#============================================================
 func _on_add_project_button_pressed() -> void:
 	create_new_project_window.popup_centered()
 
@@ -151,6 +162,8 @@ func _on_filter_line_edit_text_changed(new_text: String) -> void:
 
 func _on_create_new_project_created_project(dir_path: Variant) -> void:
 	projects_item_container.add_item(dir_path)
+	Global.save_config_data()
+	Engine.get_main_loop().quit.call_deferred()
 
 func _on_project_items_split_container_dragged(offset: int) -> void:
 	Config.Misc.project_split_offset.update(offset)

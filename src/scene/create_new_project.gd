@@ -49,7 +49,7 @@ func _on_project_name_line_edit_text_changed(new_text: String) -> void:
 
 
 func _on_projects_path_button_pressed() -> void:
-	select_projects_dir_dialog.current_path = Config.Project.project_dir.get_value("")
+	select_projects_dir_dialog.current_dir = Config.Project.project_dir.get_value("")
 	select_projects_dir_dialog.popup_centered()
 
 
@@ -78,6 +78,7 @@ func _on_create_button_pressed() -> void:
 			if DirAccess.dir_exists_absolute(template_dir):
 				print("复制模板到：", dir_path)
 				FileUtil.copy_directory_and_file(template_dir, dir_path)
+		
 		# 项目配置
 		FileUtil.make_dir_if_not_exists(dir_path)
 		var project = ConfigFile.new()
@@ -99,12 +100,16 @@ func _on_create_button_pressed() -> void:
 				var plugin_dir_path = init_plugin_dir.path_join(dir_name)
 				print("  复制插件到：", addons_dir_path.path_join(dir_name))
 				FileUtil.copy_directory_and_file(plugin_dir_path, addons_dir_path.path_join(dir_name))
+		# git相关文件
+		var git_ignore_file_path = dir_path.path_join(".gitignore")
+		FileUtil.write_as_string(git_ignore_file_path, "# Godot 4+ specific ignores\n.godot/\n/android/")
+		var git_attributes_file_path = dir_path.path_join(".gitattributes")
+		FileUtil.write_as_string(git_attributes_file_path, "# Normalize EOL for all files that Git considers text files.\n* text=auto eol=lf\n")
+		# 已创建完成
 		if not Config.Project.projects_dir_list.get_value([]).has(dir_path):
 			Config.Project.projects_dir_list.get_value([]).append(dir_path)
-		# 已创建完成
-		self.created_project.emit(dir_path)
 		Global.edit_godot_project(dir_path)
-		Engine.get_main_loop().quit()
+		self.created_project.emit(dir_path)
 		
 	else:
 		push_error("没有设置项目保存的路径")

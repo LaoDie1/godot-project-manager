@@ -41,14 +41,20 @@ func _enter_tree() -> void:
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
 		self.quit_program.emit()
-		# 保存数据
-		var data := {}
-		for bind_property:BindPropertyItem in propertys.values():
-			data[bind_property.get_name()] = bind_property.get_value()
-		if last_data_hash != hash(data):
-			FileUtil.write_as_var(config_path, data)
-			print("数据已发生改变，保存数据")
-			print(data)
+		
+		#var window : Window = get_viewport()
+		#window.hide()
+		save_config_data()
+
+## 保存配置数据
+func save_config_data():
+	var data := {}
+	for bind_property:BindPropertyItem in propertys.values():
+		data[bind_property.get_name()] = bind_property.get_value()
+	if last_data_hash != hash(data):
+		FileUtil.write_as_var(config_path, data)
+		print("数据已发生改变，保存数据")
+		print(data)
 
 
 ## 编辑godot项目。godot_runner 为 godot.exe 文件
