@@ -34,7 +34,8 @@ func _enter():
 					print(" ".join(["git", "commit", "-m", '"%s"' % commit_text]))
 					OS.execute("CMD.exe", ["/C", "git", "commit", "-m", '"%s"' % commit_text])
 					var error = OK
-					for i in 4:
+					var max_count = 4
+					for i in max_count:
 						var output = []
 						OS.execute("CMD.exe", ["/C", "git push"], output)
 						print("git push")
@@ -45,7 +46,7 @@ func _enter():
 							break
 						else:
 							error = FAILED
-							if i < 2:
+							if i < max_count - 1:
 								push_warning("上传失败，重新上传", text)
 					thread.wait_to_finish.call_deferred()
 					print("上传结束：", error_string(error))
