@@ -40,16 +40,23 @@ func exit() -> void:
 func check_diff():
 	print("=".repeat(80))
 	var list : Array[Dictionary] 
+	var diff_status : bool = false
 	# 当前插件不存在的
-	prints(current_path, "与以下文件的区别：")
 	list = _check_diff(root_path, current_path)
-	for data in list:
-		prints("  当前插件 %-7s %s" % [data["status"], data["from"]])
+	if not list.is_empty():
+		diff_status = true
+		prints("当前插件", current_path, "与以下文件的区别：")
+		for data in list:
+			prints("   %-7s %s" % [data["status"], data["from"]])
 	# 总插件不存在的
-	prints(root_path, "与以下文件的区别：")
 	list = _check_diff(current_path, root_path)
-	for data in list:
-		prints("  总插件   %-7s %s" % [data["status"], data["from"]])
+	if not list.is_empty():
+		diff_status = true
+		prints("总插件", root_path, "与以下文件的区别：")
+		for data in list:
+			prints("   %-7s %s" % [data["status"], data["from"]])
+	if not diff_status:
+		print("  没有差异")
 	print("=".repeat(80))
 
 
@@ -65,6 +72,13 @@ func upload():
 				Status.NOT_EXISTS_FILE, Status.NOT_EXISTS_DIRECTORY:
 					FileUtil.remove(item["from"])
 					print(" ✘ 移除 ", item["from"])
+		
+		list = _check_diff(current_path, root_path)
+		for item in list:
+			if item["status"] == Status.NOT_EXISTS_FILE:
+				FileUtil.copy_file(item["from"], item["to"])
+				print(" ✔ 新增 ", item["to"])
+			
 	else:
 		print("没有差异文件")
 	print()
@@ -77,11 +91,16 @@ func download():
 		for item in list:
 			match item["status"]:
 				Status.DIFF:
-					#FileUtil.copy_file(item["to"], item["from"])
+					FileUtil.copy_file(item["to"], item["from"])
 					print(" ✔ 更新 ", item["from"])
 				Status.NOT_EXISTS_FILE, Status.NOT_EXISTS_DIRECTORY:
-					#FileUtil.remove(item["from"])
+					FileUtil.remove(item["from"])
 					print(" ✘ 移除 ", item["from"])
+		list = _check_diff(root_path, current_path)
+		for item in list:
+			if item["status"] == Status.NOT_EXISTS_FILE:
+				FileUtil.copy_file(item["from"], item["to"])
+				print(" ✔ 新增 ", item["to"])
 		EditorInterface.get_resource_filesystem().scan()
 	else:
 		print("没有差异文件")

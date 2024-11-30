@@ -8,7 +8,7 @@
 extends AbstractCustomMenu
 
 
-func _get_menu_name():
+func _get_menu_name(): 
 	return "上传至总插件"
 
 func _execute():

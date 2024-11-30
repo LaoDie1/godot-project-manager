@@ -9,7 +9,7 @@ extends AbstractCustomMenu
 
 
 func _get_menu_name():
-	return "下载总插件"
+	return "下载到当前插件"
 
 func _execute():
 	ApprenticePlugin.instance.SyncFile.download()
