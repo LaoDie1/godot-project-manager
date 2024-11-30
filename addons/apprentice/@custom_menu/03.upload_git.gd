@@ -34,7 +34,7 @@ func _enter():
 					print(" ".join(["git", "commit", "-m", '"%s"' % commit_text]))
 					OS.execute("CMD.exe", ["/C", "git", "commit", "-m", '"%s"' % commit_text])
 					var error = OK
-					for i in 3:
+					for i in 4:
 						var output = []
 						OS.execute("CMD.exe", ["/C", "git push"], output)
 						print("git push")
