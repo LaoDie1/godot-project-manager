@@ -8,6 +8,14 @@
 class_name AbstractCustomMenu
 extends RefCounted
 
+
+func _enter():
+	pass
+
+func _exit():
+	pass
+
+
 ## 菜单名称
 func _get_menu_name():
 	return ""

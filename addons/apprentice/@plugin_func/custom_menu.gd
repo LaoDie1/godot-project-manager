@@ -41,6 +41,7 @@ func enter() -> void:
 						if item._get_shortcut():
 							root_menu.set_item_shortcut(id, item._get_shortcut())
 						id_to_menu_item[id] = item
+						item._enter()
 					else:
 						push_error(file, " 没有设置菜单名")
 				else:
@@ -50,6 +51,8 @@ func enter() -> void:
 
 
 func exit() -> void:
+	for item: AbstractCustomMenu in id_to_menu_item.values():
+		item._exit()
 	root_menu.queue_free()
 
 
