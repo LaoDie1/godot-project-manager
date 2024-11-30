@@ -195,7 +195,6 @@ func _on_indicator_menu_id_pressed(id: int) -> void:
 			window.mode = Window.MODE_WINDOWED
 		"隐藏窗口":
 			window.mode = Window.MODE_MINIMIZED
-			window.visible = false
 		"退出":
 			Global.quit()
 

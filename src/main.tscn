@@ -320,6 +320,7 @@ icon = SubResource("ImageTexture_5udhc")
 
 [connection signal="timeout" from="SystemThemeTimer" to="." method="update_program_theme"]
 [connection signal="timeout" from="FilterTimer" to="." method="update_filter_items"]
+[connection signal="pressed" from="StatusIndicator" to="." method="_on_status_indicator_pressed"]
 [connection signal="id_pressed" from="StatusIndicator/IndicatorMenu" to="." method="_on_indicator_menu_id_pressed"]
 [connection signal="created_project" from="Windows/CreateNewProjectWindow/CreateNewProject" to="." method="_on_create_new_project_created_project"]
 [connection signal="dir_selected" from="Windows/ScanProjectsDialog" to="." method="scan_projects"]
