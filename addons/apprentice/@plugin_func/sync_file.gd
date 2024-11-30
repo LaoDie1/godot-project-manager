@@ -75,8 +75,8 @@ func upload():
 		
 		list = _check_diff(current_path, root_path)
 		for item in list:
-			if item["status"] == Status.NOT_EXISTS_FILE:
-				FileUtil.copy_file(item["from"], item["to"])
+			if item["status"] in [Status.NOT_EXISTS_FILE, Status.NOT_EXISTS_DIRECTORY]:
+				FileUtil.copy_directory_and_file(item["from"], item["to"])
 				print(" ✔ 新增 ", item["to"])
 			
 	else:
@@ -98,10 +98,11 @@ func download():
 					print(" ✘ 移除 ", item["from"])
 		list = _check_diff(root_path, current_path)
 		for item in list:
-			if item["status"] == Status.NOT_EXISTS_FILE:
-				FileUtil.copy_file(item["from"], item["to"])
+			if item["status"] in [Status.NOT_EXISTS_FILE, Status.NOT_EXISTS_DIRECTORY]:
+				FileUtil.copy_directory_and_file(item["from"], item["to"])
 				print(" ✔ 新增 ", item["to"])
 		EditorInterface.get_resource_filesystem().scan()
+		EditorInterface.get_resource_filesystem().scan_sources()
 	else:
 		print("没有差异文件")
 	print()
