@@ -70,7 +70,7 @@ func edit_godot_project(project_dir: String):
 		push_error("没有执行的 Godot 程序")
 
 func run_godot_project(project_dir: String):
-	if FileAccess.file_exists(project_dir):
+	if DirAccess.dir_exists_absolute(project_dir):
 		var godot_runner = Config.Run.godot_runner.get_value("")
 		if godot_runner and FileAccess.file_exists(godot_runner):
 			OS.execute_with_pipe(godot_runner, ["--path ", project_dir])
