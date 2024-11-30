@@ -17,13 +17,14 @@ var propertys := {}
 
 
 func _enter_tree() -> void:
+	Engine.get_main_loop().auto_accept_quit = false # 不会自动退出
+	
 	FileUtil.make_dir_if_not_exists(config_path.get_base_dir())
 	var last_data := {} 
 	if FileUtil.file_exists(config_path):
 		last_data = FileUtil.read_as_var(config_path)
 	print("加载数据:", config_path)
 	print(last_data)
-	
 	ScriptUtil.init_class_static_value(
 		Config,
 		func(script: GDScript, path:String, property: String):
@@ -41,10 +42,11 @@ func _enter_tree() -> void:
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
 		self.quit_program.emit()
-		
-		#var window : Window = get_viewport()
-		#window.hide()
+		var window : Window = Engine.get_main_loop().root
+		window.mode = Window.MODE_MINIMIZED
 		save_config_data()
+		#Engine.get_main_loop().quit()
+
 
 ## 保存配置数据
 func save_config_data():
@@ -56,12 +58,17 @@ func save_config_data():
 		print("数据已发生改变，保存数据")
 		print(data)
 
+func quit():
+	save_config_data()
+	Engine.get_main_loop().quit.call_deferred()
+
 
 ## 编辑godot项目。godot_runner 为 godot.exe 文件
 func edit_godot_project(project_dir: String):
 	var godot_runner = Config.Run.godot_runner.get_value("")
 	if godot_runner and FileAccess.file_exists(godot_runner):
 		OS.execute_with_pipe(godot_runner, ["-e", "--path ", project_dir])
+		_notification(NOTIFICATION_WM_CLOSE_REQUEST)
 	else:
 		push_error("没有执行的 Godot 程序")
 

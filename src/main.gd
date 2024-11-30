@@ -17,6 +17,7 @@ extends Control
 @onready var filter_line_edit: LineEdit = %FilterLineEdit
 @onready var sort_item_button: OptionButton = %SortItemButton
 @onready var project_items_split_container: HSplitContainer = %ProjectItemsSplitContainer
+@onready var indicator_menu: PopupMenu = %IndicatorMenu
 
 @onready var default_clear_color: Color = RenderingServer.get_default_clear_color()
 
@@ -48,6 +49,11 @@ func _ready() -> void:
 		true
 	)
 	
+	indicator_menu.add_item("显示窗口")
+	indicator_menu.add_item("隐藏窗口")
+	indicator_menu.add_separator()
+	indicator_menu.add_item("退出")
+	
 	sort_items(sort_item_button.selected)
 	projects_item_container.select(0)
 
@@ -62,10 +68,10 @@ func update_program_theme() -> void:
 			type = "light" if Config.Misc.theme_color.get_value(0) == 1 else "dark"
 		
 		if type == "dark":
-			window.theme = null
+			window.theme = preload("res://src/assets/dark_theme.tres")
 			RenderingServer.set_default_clear_color(default_clear_color)
 		elif type == "light":
-			window.theme = preload("res://src/assets/custom_theme.tres")
+			window.theme = preload("res://src/assets/light_theme.tres")
 			RenderingServer.set_default_clear_color(Color.WHITE)
 		else:
 			push_error("错误的主题类型：", type)
@@ -102,7 +108,6 @@ func scan_projects(dir: String) -> void:
 
 func edit_project(project_dir: String) -> void:
 	Global.edit_godot_project(project_dir)
-	Engine.get_main_loop().quit()
 
 func show_selected_project_directory() -> void:
 	var item = projects_item_container.get_first_selected_item()
@@ -167,3 +172,22 @@ func _on_create_new_project_created_project(dir_path: Variant) -> void:
 
 func _on_project_items_split_container_dragged(offset: int) -> void:
 	Config.Misc.project_split_offset.update(offset)
+
+func _on_indicator_menu_id_pressed(id: int) -> void:
+	var text = indicator_menu.get_item_text(id)
+	var window: Window = get_viewport()
+	match text:
+		"显示窗口":
+			window.mode = Window.MODE_WINDOWED
+		"隐藏窗口":
+			window.mode = Window.MODE_MINIMIZED
+		"退出":
+			Global.quit()
+
+
+func _on_status_indicator_pressed(mouse_button: int, mouse_position: Vector2i) -> void:
+	if mouse_button == MOUSE_BUTTON_LEFT:
+		var window: Window = get_viewport()
+		window.mode = Window.MODE_WINDOWED
+		window.popup()
+		window.grab_focus()
