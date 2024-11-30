@@ -38,6 +38,7 @@ func _enter():
 						else:
 							if i < 2:
 								push_warning("上传失败，重新上传： ", text)
+					thread.wait_to_finish.call_deferred()
 			)
 	)
 
