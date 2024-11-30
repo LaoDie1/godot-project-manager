@@ -33,7 +33,7 @@ func _enter():
 						var output = []
 						OS.execute("CMD.exe", ["/C", "git push"], output)
 						var text := str(output[0])
-						if text.contains("Enumerating objects") or text.contains("Everything up-to-date"):
+						if text == "" or text.contains("Enumerating objects") or text.contains("Everything up-to-date"):
 							break
 						else:
 							if i < 2:
