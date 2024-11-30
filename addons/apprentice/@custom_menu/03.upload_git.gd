@@ -46,7 +46,7 @@ func _enter():
 						else:
 							error = FAILED
 							if i < 2:
-								push_warning("上传失败，重新上传： ", text)
+								push_warning("上传失败，重新上传", text)
 					thread.wait_to_finish.call_deferred()
 					print("上传结束：", error_string(error))
 			)
