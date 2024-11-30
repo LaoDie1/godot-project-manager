@@ -47,8 +47,7 @@ func _ready() -> void:
 		func():
 			Config.Misc.theme_color.bind_method(
 				func(value):
-					self.update_program_theme()
-					,
+					self.update_program_theme(),
 				true
 			)
 			change_theme_thread.wait_to_finish.call_deferred()

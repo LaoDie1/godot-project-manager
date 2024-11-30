@@ -44,9 +44,6 @@ func _notification(what: int) -> void:
 		self.quit_program.emit()
 		var window : Window = Engine.get_main_loop().root
 		window.mode = Window.MODE_MINIMIZED
-		save_config_data()
-		#Engine.get_main_loop().quit()
-
 
 ## 保存配置数据
 func save_config_data():
@@ -73,8 +70,11 @@ func edit_godot_project(project_dir: String):
 		push_error("没有执行的 Godot 程序")
 
 func run_godot_project(project_dir: String):
-	var godot_runner = Config.Run.godot_runner.get_value("")
-	if godot_runner and FileAccess.file_exists(godot_runner):
-		OS.execute_with_pipe(godot_runner, ["--path ", project_dir])
+	if FileAccess.file_exists(project_dir):
+		var godot_runner = Config.Run.godot_runner.get_value("")
+		if godot_runner and FileAccess.file_exists(godot_runner):
+			OS.execute_with_pipe(godot_runner, ["--path ", project_dir])
+		else:
+			push_error("没有执行的 Godot 程序")
 	else:
-		push_error("没有执行的 Godot 程序")
+		push_error("没有这个项目 ", project_dir)
