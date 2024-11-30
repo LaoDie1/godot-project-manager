@@ -181,6 +181,7 @@ func _on_indicator_menu_id_pressed(id: int) -> void:
 			window.mode = Window.MODE_WINDOWED
 		"隐藏窗口":
 			window.mode = Window.MODE_MINIMIZED
+			window.visible = false
 		"退出":
 			Global.quit()
 
@@ -188,6 +189,9 @@ func _on_indicator_menu_id_pressed(id: int) -> void:
 func _on_status_indicator_pressed(mouse_button: int, mouse_position: Vector2i) -> void:
 	if mouse_button == MOUSE_BUTTON_LEFT:
 		var window: Window = get_viewport()
-		window.mode = Window.MODE_WINDOWED
-		window.popup()
-		window.grab_focus()
+		if window.mode == Window.MODE_MINIMIZED:
+			window.mode = Window.MODE_WINDOWED
+			window.popup()
+			window.grab_focus()
+		else:
+			window.mode = Window.MODE_MINIMIZED

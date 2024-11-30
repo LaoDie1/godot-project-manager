@@ -21,6 +21,7 @@ Global="*res://src/global/global.gd"
 
 [display]
 
+window/energy_saving/keep_screen_on=false
 window/subwindows/embed_subwindows=false
 
 [editor_plugins]
