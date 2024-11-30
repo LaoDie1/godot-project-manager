@@ -42,11 +42,16 @@ func _ready() -> void:
 	Config.Misc.last_scan_projects_path.bind_property(scan_projects_dialog, "current_path", true)
 	Config.Misc.sort_mode.bind_method(sort_item_button.select, true)
 	Config.Misc.project_split_offset.bind_property(project_items_split_container, "split_offset", true)
-	Config.Misc.theme_color.bind_method(
-		func(value):
-			self.update_program_theme()
-			,
-		true
+	var change_theme_thread := Thread.new()
+	change_theme_thread.start(
+		func():
+			Config.Misc.theme_color.bind_method(
+				func(value):
+					self.update_program_theme()
+					,
+				true
+			)
+			change_theme_thread.wait_to_finish.call_deferred()
 	)
 	
 	indicator_menu.add_item("显示窗口")
@@ -57,6 +62,16 @@ func _ready() -> void:
 	sort_items(sort_item_button.selected)
 	projects_item_container.select(0)
 
+var dark_theme:
+	get():
+		if dark_theme == null:
+			dark_theme = load("res://src/assets/dark_theme.tres")
+		return dark_theme
+var light_theme:
+	get():
+		if light_theme == null:
+			light_theme = load("res://src/assets/light_theme.tres")
+		return light_theme
 
 func update_program_theme() -> void:
 	if DisplayServer.is_dark_mode_supported():
@@ -68,10 +83,10 @@ func update_program_theme() -> void:
 			type = "light" if Config.Misc.theme_color.get_value(0) == 1 else "dark"
 		
 		if type == "dark":
-			window.theme = preload("res://src/assets/dark_theme.tres")
+			window.theme = dark_theme
 			RenderingServer.set_default_clear_color(default_clear_color)
 		elif type == "light":
-			window.theme = preload("res://src/assets/light_theme.tres")
+			window.theme = light_theme
 			RenderingServer.set_default_clear_color(Color.WHITE)
 		else:
 			push_error("错误的主题类型：", type)
