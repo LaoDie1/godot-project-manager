@@ -41,6 +41,7 @@ func _enter():
 						var text := str(output[0])
 						if text.contains("Enumerating objects") or text.contains("Everything up-to-date"):
 							error = OK
+							text_edit.set_deferred("text", "")
 							break
 						else:
 							error = FAILED
