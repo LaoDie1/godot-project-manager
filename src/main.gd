@@ -23,6 +23,9 @@ extends Control
 
 
 func _ready() -> void:
+	if not Engine.get_main_loop().resume:
+		return
+	
 	var window : Window = get_viewport()
 	if Config.Misc.main_win_size.get_value():
 		window.size = Config.Misc.main_win_size.get_value()
@@ -61,16 +64,6 @@ func _ready() -> void:
 	sort_items(sort_item_button.selected)
 	projects_item_container.select(0)
 
-var dark_theme:
-	get():
-		if dark_theme == null:
-			dark_theme = load("res://src/assets/dark_theme.tres")
-		return dark_theme
-var light_theme:
-	get():
-		if light_theme == null:
-			light_theme = load("res://src/assets/light_theme.tres")
-		return light_theme
 
 func update_program_theme() -> void:
 	if DisplayServer.is_dark_mode_supported():
@@ -80,12 +73,11 @@ func update_program_theme() -> void:
 			type = "light" if not DisplayServer.is_dark_mode() else "dark"
 		else:
 			type = "light" if Config.Misc.theme_color.get_value(0) == 1 else "dark"
-		
 		if type == "dark":
-			window.theme = dark_theme
+			window.theme = FileUtil.load_file("res://src/assets/dark_theme.tres")
 			RenderingServer.set_default_clear_color(default_clear_color)
 		elif type == "light":
-			window.theme = light_theme
+			window.theme = FileUtil.load_file("res://src/assets/light_theme.tres")
 			RenderingServer.set_default_clear_color(Color.WHITE)
 		else:
 			push_error("错误的主题类型：", type)
@@ -197,7 +189,6 @@ func _on_indicator_menu_id_pressed(id: int) -> void:
 			window.mode = Window.MODE_MINIMIZED
 		"退出":
 			Global.quit()
-
 
 func _on_status_indicator_pressed(mouse_button: int, mouse_position: Vector2i) -> void:
 	if mouse_button == MOUSE_BUTTON_LEFT:

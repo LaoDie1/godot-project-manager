@@ -17,14 +17,14 @@ var propertys := {}
 
 
 func _enter_tree() -> void:
+	if not Engine.get_main_loop().resume:
+		return
 	Engine.get_main_loop().auto_accept_quit = false # 不会自动退出
-	
 	FileUtil.make_dir_if_not_exists(config_path.get_base_dir())
 	var last_data := {} 
 	if FileUtil.file_exists(config_path):
 		last_data = FileUtil.read_as_var(config_path)
 	print("加载数据:", config_path)
-	print(last_data)
 	ScriptUtil.init_class_static_value(
 		Config,
 		func(script: GDScript, path:String, property: String):
@@ -35,7 +35,7 @@ func _enter_tree() -> void:
 				script.set(property, bind_property)
 				propertys[property_path] = bind_property
 	)
-	
+	OS.set_thread_name("Godot Engine - 项目管理器")
 	last_data_hash = hash(last_data)
 
 

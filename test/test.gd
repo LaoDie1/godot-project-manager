@@ -3,8 +3,12 @@ extends EditorScript
 
 
 func _run() -> void:
-	pass
+	CMDUtil.current_is_running()
+	return
 	
-	var output = []
-	OS.execute("git", ["push"], output, true)
-	print(output)
+	#print( OS.get_executable_path())
+	
+	var pid_to_check = "godot" # 这里替换为你要检查的实际PID
+	for line in CMDUtil.find_running_program("Godot"):
+		print(line)
+	
