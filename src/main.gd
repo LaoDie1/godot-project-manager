@@ -139,12 +139,16 @@ func update_filter_items() -> void:
 		item.visible = item.project_name.to_lower().contains(filter_text) or item.path.contains(filter_text)
 
 func delete_selected_items() -> void:
-	var idx : int = -1
-	for item in projects_item_container.get_selected_items():
-		OS.move_to_trash(item.path)
-		projects_item_container.remove_item(item.path)
-		idx = item.get_index()
-	projects_item_container.select(idx)
+	SystemUtil.popup_confirmation_dialog(
+		"要删除这个文件吗？不可恢复！",
+		func():
+			var idx : int = -1
+			for item in projects_item_container.get_selected_items():
+				OS.move_to_trash(item.path)
+				projects_item_container.remove_item(item.path)
+				idx = item.get_index()
+			projects_item_container.select(idx)
+	)
 
 
 #============================================================
