@@ -11,7 +11,7 @@ extends SceneTree
 var resume : bool = true
 
 func _initialize() -> void:
-	if not OS.has_feature("editor") and  CMDUtil.current_is_running():
+	if not OS.has_feature("editor") and SystemUtil.current_is_running():
 		resume = false
 		quit()
 		push_error("已经正在执行了")

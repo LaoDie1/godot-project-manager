@@ -25,7 +25,7 @@ extends Control
 func _ready() -> void:
 	if not Engine.get_main_loop().resume:
 		return
-	
+	# 窗口配置
 	var window : Window = get_viewport()
 	if Config.Misc.main_win_size.get_value():
 		window.size = Config.Misc.main_win_size.get_value()
@@ -41,46 +41,37 @@ func _ready() -> void:
 		godot_running_program_window,
 	]:
 		w.close_requested.connect(w.hide)
-	
+	# 绑定属性
 	Config.Misc.last_scan_projects_path.bind_property(scan_projects_dialog, "current_path", true)
 	Config.Misc.sort_mode.bind_method(sort_item_button.select, true)
 	Config.Misc.project_split_offset.bind_property(project_items_split_container, "split_offset", true)
-	var change_theme_thread := Thread.new()
-	change_theme_thread.start(
-		func():
-			Config.Misc.theme_color.bind_method(
-				func(value):
-					self.update_program_theme(),
-				true
-			)
-			change_theme_thread.wait_to_finish.call_deferred()
-	)
-	
+	DisplayServer.set_system_theme_change_callback(update_program_theme)
+	FuncUtil.thread_execute( Config.Misc.theme_color.bind_method.bind(
+		func(value): self.update_program_theme(), true
+	))
+	# 状态指示器
 	indicator_menu.add_item("显示窗口")
 	indicator_menu.add_item("隐藏窗口")
 	indicator_menu.add_separator()
 	indicator_menu.add_item("退出")
-	
+	# 选中第一个文件
 	sort_items(sort_item_button.selected)
 	projects_item_container.select(0)
 
 
 func update_program_theme() -> void:
-	if DisplayServer.is_dark_mode_supported():
-		var window : Window = get_viewport()
-		var type
-		if Config.Misc.theme_color.get_value(0) == 0:
-			type = "light" if not DisplayServer.is_dark_mode() else "dark"
-		else:
-			type = "light" if Config.Misc.theme_color.get_value(0) == 1 else "dark"
-		if type == "dark":
-			window.theme = FileUtil.load_file("res://src/assets/dark_theme.tres")
-			RenderingServer.set_default_clear_color(default_clear_color)
-		elif type == "light":
-			window.theme = FileUtil.load_file("res://src/assets/light_theme.tres")
-			RenderingServer.set_default_clear_color(Color.WHITE)
-		else:
-			push_error("错误的主题类型：", type)
+	var window : Window = get_viewport()
+	var type: SystemUtil.ThemeType
+	if Config.Misc.theme_color.get_number() == 0:
+		type = SystemUtil.get_theme_type()
+	else:
+		type = SystemUtil.ThemeType.LIGHT if Config.Misc.theme_color.get_number() == 1 else SystemUtil.ThemeType.DARK
+	if type == SystemUtil.ThemeType.DARK:
+		window.theme = FileUtil.load_file("res://src/assets/dark_theme.tres")
+		RenderingServer.set_default_clear_color(default_clear_color)
+	else:
+		window.theme = FileUtil.load_file("res://src/assets/light_theme.tres")
+		RenderingServer.set_default_clear_color(Color.WHITE)
 
 
 func sort_items(index: int) -> void:
