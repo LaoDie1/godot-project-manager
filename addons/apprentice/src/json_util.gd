@@ -97,5 +97,3 @@ static func dict_add(origin_data: Dictionary, from: Dictionary, handle_value := 
 				origin_data[key] += handle_value.call(key, value)
 	origin_data.merge(from, false)
 	return origin_data
-
-

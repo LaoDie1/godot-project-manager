@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dblmjojun1t62"]
 
-[ext_resource type="Script" path="res://src/scene/projects_item_container.gd" id="1_3rfwk"]
+[ext_resource type="Script" uid="uid://cqsuhjchpkkgs" path="res://src/scene/projects_item_container.gd" id="1_3rfwk"]
 
 [node name="ProjectItemContainer" type="Control"]
 layout_mode = 3

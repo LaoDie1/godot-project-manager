@@ -26,6 +26,7 @@ var plugin: EditorPlugin
 
 
 func enter() -> void:
+	push_warning("现在修改 apprentice 目录里的文件时会自动更新到 ", root_path, " 目录中")
 	plugin.add_tool_menu_item(TOOL_NAME_CHECK_DIFF, check_diff) # 检查差异
 	plugin.add_tool_menu_item(TOOL_NAME_UPLOAD, upload) # 上传
 	plugin.add_tool_menu_item(TOOL_NAME_DOWNLOAD, download) # 下载
@@ -62,7 +63,9 @@ func check_diff():
 
 func upload():
 	var list : Array[Dictionary] = _check_diff(root_path, current_path)
+	var diff_status = false
 	if not list.is_empty():
+		diff_status = true
 		print("修改 %s 目录的文件" % root_path)
 		for item in list:
 			match item["status"]:
@@ -72,14 +75,15 @@ func upload():
 				Status.NOT_EXISTS_FILE, Status.NOT_EXISTS_DIRECTORY:
 					FileUtil.remove(item["from"])
 					print(" ✘ 移除 ", item["from"])
-		
-		list = _check_diff(current_path, root_path)
+	
+	list = _check_diff(current_path, root_path)
+	if not list.is_empty():
+		diff_status = true
 		for item in list:
 			if item["status"] in [Status.NOT_EXISTS_FILE, Status.NOT_EXISTS_DIRECTORY]:
 				FileUtil.copy_directory_and_file(item["from"], item["to"])
 				print(" ✔ 新增 ", item["to"])
-			
-	else:
+	if not diff_status:
 		print("没有差异文件")
 	print()
 
@@ -94,8 +98,10 @@ func upload_to_root(file_path: String):
 
 
 func download():
+	var diff_status = false
 	var list : Array[Dictionary] = _check_diff(current_path, root_path)
 	if not list.is_empty():
+		diff_status = true
 		print("修改 %s 目录的文件" % current_path)
 		for item in list:
 			match item["status"]:
@@ -105,15 +111,18 @@ func download():
 				Status.NOT_EXISTS_FILE, Status.NOT_EXISTS_DIRECTORY:
 					FileUtil.remove(item["from"])
 					print(" ✘ 移除 ", item["from"])
-		list = _check_diff(root_path, current_path)
+	list = _check_diff(root_path, current_path)
+	if not list.is_empty():
+		diff_status = true
 		for item in list:
 			if item["status"] in [Status.NOT_EXISTS_FILE, Status.NOT_EXISTS_DIRECTORY]:
 				FileUtil.copy_directory_and_file(item["from"], item["to"])
 				print(" ✔ 新增 ", item["to"])
+	if not diff_status:
+		print("没有差异文件")
+	else:
 		EditorInterface.get_resource_filesystem().scan()
 		EditorInterface.get_resource_filesystem().scan_sources()
-	else:
-		print("没有差异文件")
 	print()
 
 

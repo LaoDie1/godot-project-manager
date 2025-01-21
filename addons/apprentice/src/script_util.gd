@@ -542,7 +542,7 @@ static var class_regex : RegEx:
 	get:
 		if class_regex == null:
 			class_regex = RegEx.new()
-			class_regex.compile("(?<indent>\\s*)class\\s+(?<class_name>\\w+)\\s*:")
+			class_regex.compile("^\\s*(?<indent>\\s*)class\\s+(?<class_name>\\w+)\\s*:")
 		return class_regex
 static var var_regex : RegEx:
 	get:

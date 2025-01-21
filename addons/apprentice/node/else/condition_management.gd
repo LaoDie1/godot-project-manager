@@ -46,4 +46,3 @@ func check(group, parameters: Array = []) -> bool:
 			erase(group, callback)
 	
 	return true
-

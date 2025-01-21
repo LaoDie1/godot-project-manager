@@ -67,10 +67,10 @@ func update_program_theme() -> void:
 	else:
 		type = SystemUtil.ThemeType.LIGHT if Config.Misc.theme_color.get_number() == 1 else SystemUtil.ThemeType.DARK
 	if type == SystemUtil.ThemeType.DARK:
-		window.theme = FileUtil.load_file("res://src/assets/dark_theme.tres")
+		window.theme = FileUtil.load_file("res://src/assets/dark_theme.res")
 		RenderingServer.set_default_clear_color(default_clear_color)
 	else:
-		window.theme = FileUtil.load_file("res://src/assets/light_theme.tres")
+		window.theme = FileUtil.load_file("res://src/assets/light_theme.res")
 		RenderingServer.set_default_clear_color(Color.WHITE)
 
 
@@ -169,7 +169,6 @@ func _on_filter_line_edit_text_changed(new_text: String) -> void:
 func _on_create_new_project_created_project(dir_path: Variant) -> void:
 	projects_item_container.add_item(dir_path)
 	Global.save_config_data()
-	Engine.get_main_loop().quit.call_deferred()
 
 func _on_project_items_split_container_dragged(offset: int) -> void:
 	Config.Misc.project_split_offset.update(offset)
@@ -179,18 +178,9 @@ func _on_indicator_menu_id_pressed(id: int) -> void:
 	var window: Window = get_viewport()
 	match text:
 		"显示窗口":
-			window.mode = Window.MODE_WINDOWED
+			Global.show_program_bar()
 		"隐藏窗口":
-			window.mode = Window.MODE_MINIMIZED
+			Global.hide_program_bar()
 		"退出":
+			Global.show_program_bar()
 			Global.quit()
-
-func _on_status_indicator_pressed(mouse_button: int, mouse_position: Vector2i) -> void:
-	if mouse_button == MOUSE_BUTTON_LEFT:
-		var window: Window = get_viewport()
-		if window.mode == Window.MODE_MINIMIZED:
-			window.mode = Window.MODE_WINDOWED
-			window.popup()
-			window.grab_focus()
-		else:
-			window.mode = Window.MODE_MINIMIZED

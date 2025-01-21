@@ -82,10 +82,14 @@ static func write_as_string(
 	return false
 
 static func load_image(file_path: String) -> Image:
-	if file_path.get_extension().to_lower() == "svg":
-		var image = Image.new()
-		image.load_svg_from_string( read_as_string(file_path) )
-		return image
+	match file_path.get_extension().to_lower():
+		"svg":
+			var image : Image = Image.new()
+			image.load_svg_from_string( read_as_string(file_path) )
+			return image
+		"ico", "icon":
+			var bytes : PackedByteArray = read_as_bytes(file_path)
+			return load_ico_from_buffer(bytes)
 	return Image.load_from_file(file_path)
 
 static func save_image(image: Image, path: String):
@@ -95,25 +99,29 @@ static func save_image(image: Image, path: String):
 		"webp": image.save_webp(path)
 		"exr": image.save_exr(path)
 
-static func load_image_by_buff(body: PackedByteArray) -> Image:
-	var image = Image.new()
-	var file_type = FileType.get_type(body)
-	var error = OK
-	if file_type.contains("png"):
-		error = image.load_png_from_buffer(body)
-	elif file_type.contains("webp"):
-		error = image.load_webp_from_buffer(body)
-	elif file_type.contains("jpeg"):
-		error = image.load_jpg_from_buffer(body)
-	elif file_type.contains("bmp"):
-		error = image.load_bmp_from_buffer(body)
+static func load_image_by_buffer(body: PackedByteArray) -> Image:
+	var file_type : String = FileTypeUtil.get_type(body)
+	var error : int = OK
+	if file_type:
+		var image := Image.new()
+		if file_type.contains("png"):
+			error = image.load_png_from_buffer(body)
+		elif file_type.contains("webp"):
+			error = image.load_webp_from_buffer(body)
+		elif file_type.contains("jpeg"):
+			error = image.load_jpg_from_buffer(body)
+		elif file_type.contains("bmp"):
+			error = image.load_bmp_from_buffer(body)
+		elif file_type.contains("ico"):
+			return load_ico_from_buffer(body)
+		else:
+			push_error("其他图片类型:", file_type, " |  ", body.slice(0, 16).hex_encode().to_upper())
+		return image
 	else:
-		printerr("其他图片类型:", file_type, " |  ", body.slice(0, 16).hex_encode().to_upper())
-	
+		error = FAILED
 	if error != OK:
-		printerr("读取图片数据失败：", error, "  ", error_string(error))
-	
-	return image
+		push_error("读取图片数据失败：", error, "  ", error_string(error))
+	return null
 
 ## 文件是否存在
 static func file_exists(file_path: String) -> bool:
@@ -387,7 +395,7 @@ static func get_project_real_path() -> String:
 	if OS.has_feature("editor"):
 		return ProjectSettings.globalize_path("res://")
 	else:
-		return OS.get_executable_path()
+		return OS.get_executable_path().get_base_dir()
 
 
 ## 文件分组匹配
@@ -501,8 +509,8 @@ static func copy_file(path: String, new_path: String):
 		DirAccess.copy_absolute(path, new_path)
 	else:
 		# 这种方式可以复制 res:// 中的文件到外部
-		var bytes = FileAccess.get_file_as_bytes(path)
-		var file = FileAccess.open(new_path, FileAccess.WRITE)
+		var bytes : PackedByteArray = FileAccess.get_file_as_bytes(path)
+		var file : FileAccess = FileAccess.open(new_path, FileAccess.WRITE)
 		file.store_buffer(bytes)
 		file.flush()
 
@@ -540,7 +548,6 @@ static func find_program_path(program_name: String) -> String:
 		return ""
 	return list[0]
 
-
 static var _load_cache : Dictionary = {}
 ## 加载文件。加载完之后不需要重复 load
 static func load_file(path: String) -> Variant:
@@ -549,3 +556,64 @@ static func load_file(path: String) -> Variant:
 	else:
 		_load_cache[path] = load(path)
 		return _load_cache[path]
+
+static var _cache_file_md5 : Dictionary = {}
+## 获取文件的 md5 数据。会自动缓存数据，不会重复获取，这对于一些比较大的文件会有用。
+static func get_file_md5(file_path: String, simple: bool = true) -> String:
+	if not _cache_file_md5.has(file_path):
+		var md5 : String = ( file_path.md5_text() if simple else FileAccess.get_md5(file_path) )
+		if not md5.is_empty():
+			_cache_file_md5[file_path] = md5
+	return _cache_file_md5.get(file_path, "")
+
+
+const ICO_HEADER_SIZE = 6
+const ICO_ENTRY_SIZE = 16
+## 转换 ico 数据为图像
+static func load_ico_from_buffer(ico_bytes: PackedByteArray) -> Image:
+	# 数据指针
+	var point : int = 0
+	# 开始读取数据
+	var header : PackedByteArray = ico_bytes.slice(point, point + ICO_HEADER_SIZE)
+	point += ICO_HEADER_SIZE
+	var image_count : int = _get_16(header, 4)
+	var entries : Array[PackedByteArray] = []
+	var entry: PackedByteArray
+	for i in range(image_count):
+		entry = ico_bytes.slice(point, point + ICO_ENTRY_SIZE)
+		point += ICO_ENTRY_SIZE
+		entries.append(entry)
+	# 使用第一个图像
+	entry = entries[0]
+	var width : int = entry[0]
+	var height : int = entry[1]
+	var image_data : PackedByteArray = ico_bytes.slice(point)
+	return _decode_ico_image(width, height, image_data)
+
+static func _decode_ico_image(width: int, height: int, image_data: PackedByteArray) -> Image:
+	# ICO 通常有一个 AND 和一个 XOR 掩码，我们这里只处理 XOR 掩码
+	var pixels := PackedByteArray()
+	for y in range(height):
+		for x in range(width):
+			var index = (x + y * width + 10) * 4
+			if index + 3 < image_data.size():
+				var b = image_data[index]
+				var g = image_data[index + 1]
+				var r = image_data[index + 2]
+				var a = image_data[index + 3]
+				pixels.push_back(r)
+				pixels.push_back(g)
+				pixels.push_back(b)
+				pixels.push_back(a)
+			else:
+				print("Index out of bounds: ", index)
+	# 创建图像
+	var format := Image.FORMAT_RGBA8
+	var image := Image.create_empty(width, height, false, format)
+	image.set_data(width, height, false, format, pixels)
+	image.flip_y()
+	return image
+
+# 辅助方法解析 16 位整数 
+static func _get_16(data: PackedByteArray, offset: int) -> int: 
+	return data[offset] | (data[offset + 1] << 8) 

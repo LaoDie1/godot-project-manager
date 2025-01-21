@@ -36,7 +36,7 @@ func _enter_tree() -> void:
 					SyncFile.upload_to_root(resource.resource_path)
 				resource_queue.clear()
 	)
-	add_child(auto_upload_timer)
+	add_child.call_deferred(auto_upload_timer)
 
 
 func _exit_tree() -> void:
@@ -49,4 +49,5 @@ func _exit_tree() -> void:
 func resource_changed(resource: Resource):
 	if resource:
 		resource_queue[resource] = null
-		auto_upload_timer.start()
+		auto_upload_timer.stop()
+		auto_upload_timer.start.call_deferred()

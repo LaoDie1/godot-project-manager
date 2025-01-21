@@ -19,6 +19,8 @@ var propertys := {}
 func _enter_tree() -> void:
 	if not Engine.get_main_loop().resume:
 		return
+	
+	# 加载项目数据
 	Engine.get_main_loop().auto_accept_quit = false # 不会自动退出
 	FileUtil.make_dir_if_not_exists(config_path.get_base_dir())
 	var last_data := {} 
@@ -35,15 +37,45 @@ func _enter_tree() -> void:
 				script.set(property, bind_property)
 				propertys[property_path] = bind_property
 	)
-	OS.set_thread_name("Godot Engine - 项目管理器")
 	last_data_hash = hash(last_data)
+	
+	# 图标
+	show_program_bar()
 
 
 func _notification(what: int) -> void:
-	if what == NOTIFICATION_WM_CLOSE_REQUEST:
-		self.quit_program.emit()
-		var window : Window = Engine.get_main_loop().root
-		window.mode = Window.MODE_MINIMIZED
+	match what:
+		NOTIFICATION_WM_CLOSE_REQUEST:
+			self.quit_program.emit()
+			WindowServer.set_window_visible(Engine.get_main_loop().root, false)
+			hide_program_bar()
+		
+		NOTIFICATION_WM_WINDOW_FOCUS_OUT:
+			await Engine.get_main_loop().create_timer(0.1).timeout
+			var window : Window = get_tree().root
+			if window.mode == Window.MODE_MINIMIZED:
+				hide_program_bar()
+		
+		#NOTIFICATION_WM_WINDOW_FOCUS_IN:
+			#var window : Window = get_tree().root
+			#show_program_bar()
+
+
+var hide_status: bool = false
+func hide_program_bar():
+	WindowServer.set_window_taskbar_icon_visible(Engine.get_main_loop().root, false)
+	var window : Window = get_tree().root
+	hide_status = true
+
+
+func show_program_bar():
+	var window : Window = get_tree().root
+	WindowServer.set_window_taskbar_icon_visible(Engine.get_main_loop().root, true)
+	hide_status = false
+	window.mode = Window.MODE_WINDOWED
+	window.popup()
+	window.grab_focus()
+
 
 ## 保存配置数据
 func save_config_data():
@@ -55,8 +87,10 @@ func save_config_data():
 		print("数据已发生改变，保存数据")
 		print(data)
 
+
 func quit():
 	save_config_data()
+	show_program_bar()
 	Engine.get_main_loop().quit.call_deferred()
 
 
@@ -69,6 +103,7 @@ func edit_godot_project(project_dir: String):
 	else:
 		push_error("没有执行的 Godot 程序")
 
+## 运行 Godot 项目
 func run_godot_project(project_dir: String):
 	if DirAccess.dir_exists_absolute(project_dir):
 		var godot_runner = Config.Run.godot_runner.get_value("")

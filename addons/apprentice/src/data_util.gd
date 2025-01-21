@@ -214,6 +214,12 @@ static func get_regex(pattern: String) -> RegEx:
 	re.compile(pattern)
 	return re
 
+static func get_regex_math_data(regex_match: RegExMatch) -> Dictionary:
+	var data := {}
+	for name in regex_match.names:
+		if regex_match.get_string(name):
+			data[name] = regex_match.get_string(name)
+	return data
 
 ##  合并数据
 ##[br]
@@ -335,3 +341,62 @@ static func duplicates(value, deep: bool = false):
 
 static func equals(a, b) -> bool:
 	return typeof(a) == typeof(b) and a == b
+
+## 获取这个数据类型的默认值
+static func get_default_value(type: int):
+	match type:
+		TYPE_FLOAT: return 0.0
+		TYPE_INT: return 0
+		TYPE_STRING: return ""
+		TYPE_STRING_NAME: return &""
+		TYPE_BOOL: return false
+		TYPE_NIL, TYPE_OBJECT: return null
+		TYPE_VECTOR2: return Vector2()
+		TYPE_VECTOR2I: return Vector2i()
+		TYPE_RECT2: return Rect2()
+		TYPE_RECT2I: return Rect2i()
+		TYPE_VECTOR3: return Vector3()
+		TYPE_VECTOR3I: return Vector3i()
+		TYPE_TRANSFORM2D: return Transform2D()
+		TYPE_VECTOR4: return Vector4()
+		TYPE_VECTOR4I: return Vector4i()
+		TYPE_PLANE: return Plane()
+		TYPE_QUATERNION: return Quaternion()
+		TYPE_AABB: return AABB()
+		TYPE_BASIS: return Basis()
+		TYPE_TRANSFORM3D: return Transform3D()
+		TYPE_PROJECTION: return Projection()
+		TYPE_COLOR: return Color()
+		TYPE_STRING_NAME: return StringName()
+		TYPE_NODE_PATH: return NodePath()
+		TYPE_RID: return RID()
+		TYPE_CALLABLE: return Callable()
+		TYPE_SIGNAL: return Signal()
+		TYPE_DICTIONARY: return Dictionary()
+		TYPE_ARRAY: return Array()
+		TYPE_PACKED_BYTE_ARRAY: return PackedByteArray()
+		TYPE_PACKED_INT32_ARRAY: return PackedInt32Array()
+		TYPE_PACKED_INT64_ARRAY: return PackedInt64Array()
+		TYPE_PACKED_FLOAT32_ARRAY: return PackedFloat32Array()
+		TYPE_PACKED_FLOAT64_ARRAY: return PackedFloat64Array()
+		TYPE_PACKED_STRING_ARRAY: return PackedStringArray()
+		TYPE_PACKED_VECTOR2_ARRAY: return PackedVector2Array()
+		TYPE_PACKED_VECTOR3_ARRAY: return PackedVector3Array()
+		TYPE_PACKED_COLOR_ARRAY: return PackedColorArray()
+		_:
+			assert(false, "没有添加这种类型")
+
+
+static func get_image_data(image: Image) -> Dictionary:
+	var data = image.data.duplicate()
+	var format = image.get_format()
+	data["format"] = format
+	return data
+
+static func generate_image_by_data(data: Dictionary) -> Image:
+	var format = data["format"]
+	if format is String:
+		if format != "Lum8":
+			push_error("format: ", format)
+		format = Image.FORMAT_RGBA8
+	return Image.create_from_data(data["width"], data["height"], data["mipmaps"], format, data["data"])

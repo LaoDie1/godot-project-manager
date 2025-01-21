@@ -81,14 +81,20 @@ func _on_create_button_pressed() -> void:
 		
 		# 项目配置
 		FileUtil.make_dir_if_not_exists(dir_path)
-		var project = ConfigFile.new()
+		var project : ConfigFile = ConfigFile.new()
 		project.set_value("", "config_version", 5)
-		var project_name = project_name_line_edit.text.strip_edges()
-		project.set_value("application", "config/name", project_name)
+		project.set_value("application", "config/name", project_name_line_edit.text.strip_edges())
 		project.set_value("application", "config/icon", "res://icon.svg")
-		var projcet_file_path = dir_path.path_join("project.godot")
+		project.set_value("autoload", "Global", "*res://src/global/global.gd")
+		project.set_value("editor_plugins", "enabled", PackedStringArray([
+			"res://addons/apprentice/plugin.cfg", 
+			"res://addons/script_comment_menu/plugin.cfg"
+		]))
+		
+		var projcet_file_path : String = dir_path.path_join("project.godot")
 		project.save(projcet_file_path)
 		DirAccess.copy_absolute("res://src/assets/icon.svg", dir_path.path_join("icon.svg")) # 图标文件
+		
 		# 初始化插件，插件会覆盖模板
 		if Config.Project.init_plugin_dir.get_value():
 			var addons_dir_path : String = dir_path.path_join("addons")

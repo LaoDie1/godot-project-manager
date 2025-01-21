@@ -72,8 +72,8 @@ class ExecutorObject extends BaseExecutor:
 		self.set_physics_process(process_callback == Timer.TIMER_PROCESS_PHYSICS)
 	
 	func _process(delta):
-		if ( 
-			_condition.call() 
+		if (
+			_condition.call()
 			and is_instance_valid(_callable.get_object())
 		):
 			_callable.call()
@@ -82,7 +82,7 @@ class ExecutorObject extends BaseExecutor:
 
 	func _physics_process(delta):
 		if (
-			_condition.call() 
+			_condition.call()
 			and is_instance_valid(_callable.get_object())
 		):
 			_callable.call()
@@ -236,7 +236,7 @@ class _IntermittentListTimer extends BaseExecutor:
 ##[br][code]return[/code]  返回执行对象
 static func execute_fragment_process(
 	duration: float,
-	callback: Callable, 
+	callback: Callable,
 	process_callback : int = Timer.TIMER_PROCESS_PHYSICS,
 	to_node: Node = null
 ) -> ExecutorObject:
@@ -260,10 +260,10 @@ static func execute_fragment_process(
 ##[br]
 ##[br][code]return[/code]  返回执行的计时器
 static func execute_intermittent(
-	interval: float, 
-	count: int, 
+	interval: float,
+	count: int,
 	callback: Callable,
-	immediate_execute_first: bool = false, 
+	immediate_execute_first: bool = false,
 	process_callback : int = Timer.TIMER_PROCESS_PHYSICS,
 	to_node: Node = null
 ) -> _IntermittentTimer:
@@ -293,7 +293,7 @@ static func execute_intermittent(
 ##[br][code]callback[/code]  回调方法
 ##[br][code]return[/code]  返回间歇执行计时器对象
 static func execute_intermittent_by_list(
-	interval_list: PackedFloat64Array, 
+	interval_list: PackedFloat64Array,
 	callback: Callable = Callable()
 ) -> _IntermittentListTimer:
 	var timer =  _IntermittentListTimer.new(interval_list, callback)
@@ -382,8 +382,8 @@ static func on_ready(callback: Callable, node: Node = null) -> Error:
 ##[br][code]by_class[/code]  根据节点的类注入属性
 ##[br][code]all_child[/code]  扫描所有节点，如果为false则仅扫描当前子节点
 static func auto_inject(
-	root: Node, 
-	by_name: bool = true, 
+	root: Node,
+	by_name: bool = true,
 	by_class: bool = false,
 	all_child: bool = true,
 ) -> Error:
@@ -395,7 +395,7 @@ static func auto_inject(
 		var prop_list : Array = []
 		if by_class:
 			for data in ScriptUtil.get_property_data_list(root.get_script()):
-				if (data['type'] == TYPE_OBJECT 
+				if (data['type'] == TYPE_OBJECT
 					and data['usage'] & PROPERTY_USAGE_SCRIPT_VARIABLE == PROPERTY_USAGE_SCRIPT_VARIABLE
 				):
 					prop_list.append(data['name'])
@@ -410,7 +410,7 @@ static func auto_inject(
 					root[property] = child
 			
 			if by_class:
-				var property : String 
+				var property : String
 				for i in range(prop_list.size()-1, -1, -1):
 					property = prop_list[i]
 					if root[property] == null:
@@ -437,8 +437,8 @@ static func auto_inject(
 ##[br][code]set_node_callable[/code]  如何获取设置节点的方法，这个方法需要有两个参数，第一个参数为
 ##[String] 类型接收属性名，第二个为 [NodePath] 类型，用于接收节点路径，返回一个 [Node] 类型的数据
 static func inject_by_path_map(
-	node: Node, 
-	property_to_node_path_map: Dictionary, 
+	node: Node,
+	property_to_node_path_map: Dictionary,
 	get_path_to_node: Node = null
 ):
 	if get_path_to_node == null:
@@ -460,8 +460,8 @@ static func inject_by_path_map(
 ##[br][code]get_path_to_node[/code]  根据这个节点获取这个路径的节点，如果为 null，则默认为
 ##target_node 参数值
 static func inject_by_path_list(
-	target_node: Node, 
-	node_path_list: PackedStringArray, 
+	target_node: Node,
+	node_path_list: PackedStringArray,
 	get_path_to_node: Node = null
 ):
 	on_enter_tree(func():
@@ -483,7 +483,7 @@ static func inject_by_path_list(
 ##[br][code]prefix[/code]  属性前缀。如果为空字符串，则默认筛选注入全部 Object 类型属性
 static func inject_by_unique(
 	node: Node,
-	prefix: String = "", 
+	prefix: String = "",
 	get_path_to_node: Node = null
 ):
 	on_enter_tree(func():
@@ -705,19 +705,19 @@ static func merge_dict(from: Dictionary, to: Dictionary, callback: Callable) -> 
 			for from_child_key in from_value:
 				call[0].call(
 					from_value,
-					to_value, 
-					from_child_key, 
-					from_value[from_child_key],  
-					to_value.get(from_child_key) #if to_value is Dictionary else null, 
+					to_value,
+					from_child_key,
+					from_value[from_child_key],
+					to_value.get(from_child_key) #if to_value is Dictionary else null,
 				)
 	
 	for key in from:
-		call[0].call( 
+		call[0].call(
 			from,
-			to, 
-			key, 
+			to,
+			key,
 			from[key],
-			to.get(key) #if to is Dictionary else null, 
+			to.get(key) #if to is Dictionary else null,
 		)
 
 
@@ -777,16 +777,16 @@ static func monitor(condition: Callable, execute_callback: Callable, finish_call
 ##[br][code]duration[/code]  持续时间
 ##[br][code]scale[/code]  属性缩放值
 static func tween_curve(
-	curve: Curve, 
-	object: Object, 
-	property_path: NodePath, 
+	curve: Curve,
+	object: Object,
+	property_path: NodePath,
 	duration: float,
-	scale: float = 1, 
+	scale: float = 1,
 ):
 	const TIME = 0
 	const SCENE = 1
 	var proxy = [0.0, Engine.get_main_loop().current_scene]
-	execute_fragment_process(duration, 
+	execute_fragment_process(duration,
 		func():
 			var ratio : float = proxy[TIME] / duration
 			object.set_indexed(property_path, curve.sample_baked(ratio) * scale)
@@ -1221,14 +1221,19 @@ static func get_closest_path(
 			break
 	return paths
 
-
-static func thread_execute(method: Callable) -> void:
+class ThreadExecutorCallback:
+	signal finished
+## 线程执行
+static func thread_execute(method: Callable) -> ThreadExecutorCallback:
 	var thread := Thread.new()
+	var callback := ThreadExecutorCallback.new()
 	thread.start(
 		func():
 			method.call()
 			thread.wait_to_finish.call_deferred()
+			callback.finished.emit()
 	)
+	return callback
 
 static var _thread_queue : Array = []
 static var _thread_queue_status : bool = false
@@ -1253,3 +1258,27 @@ static func _execute_thread_execute_queue(method: Callable) -> void:
 ## 打印时间
 static func print_time() -> void:
 	print( Time.get_datetime_string_from_system(false, true))
+
+
+static func test_use_time(method: Callable, name:String = ""):
+	var t = Time.get_ticks_msec()
+	method.call()
+	print(name, " 执行所用时间：", Time.get_ticks_msec() - t)
+
+
+## 切分搜索，从中间切开进行搜索。传入的方法中需要有一个 [int] 参数接收判断结果，并返回预期到达的 int 值，如果返回的和传入的值一样，则终止
+static func binary_search(max_length: int, method: Callable) -> int:
+	var low : int = 0  # 数组最小索引值
+	var high : int = max_length  # 数组最大索引值
+	var mid : int
+	var target: int
+	while low <= high:
+		mid = int((low + high) / 2)  # 使用 int() 实现整数除法
+		target = method.call(mid)
+		if target == mid:
+			return mid
+		elif target > mid:
+			low = mid + 1
+		else:
+			high = mid - 1
+	return -1

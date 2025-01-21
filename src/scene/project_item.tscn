@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://1aks2umit20g"]
 
-[ext_resource type="Script" path="res://src/scene/project_item.gd" id="1_i1grl"]
+[ext_resource type="Script" uid="uid://bm1au7lcxvoo4" path="res://src/scene/project_item.gd" id="1_i1grl"]
 
 [node name="ProjectItem" type="MarginContainer"]
 custom_minimum_size = Vector2(200, 0)
